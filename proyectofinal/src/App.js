@@ -8,6 +8,7 @@ function App() {
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.js</code> and.
+          <h2>cambio por emma cr</h2>
         </p>
         <a
           className="App-link"
