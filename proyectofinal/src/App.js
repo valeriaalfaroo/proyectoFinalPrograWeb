@@ -10,7 +10,10 @@ function App() {
 
           <code>src/App.js</code> 
 
-          Edit <code>src/App.js</code> and.
+          Edit <code>src/App.js</code>
+
+          <h2>cambio por emma cr</h2>
+
 
         </p>
         <a
