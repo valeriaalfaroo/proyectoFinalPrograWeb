@@ -4,8 +4,9 @@ import styles from './login.module.css';
 
 const Login = () => (
   <div className={styles.Login} data-testid="Login">
-    Login Component (test1 vale) 
+    Login Component (test1 Vale) 
     Login Component (test2 Eduardo) 
+    Login Component (test2 Nacho)
   </div>
 );
 
