@@ -24,9 +24,9 @@ const Registro = () => (
 <Button variant="contained" name="btnRegistrar" type="submit">Ingresar</Button>
 <Button variant="contained" name="btnCancelarRegistro" type="reset">Cancelar</Button>
 <br></br>
-<h2>Ya se encuentra registrado?</h2>
+<hr></hr>
+<h4><p>Si ya tiene una cuenta, haga <a href='./login'>click aquí </a>para ingresar.</p></h4>
 <br></br>
-<Button variant="contained" name="btnRedirigir" type="button" href='./login'>Sign In</Button>
 </form>
    
    <br></br>
