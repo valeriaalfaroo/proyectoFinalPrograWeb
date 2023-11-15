@@ -10,15 +10,15 @@ const Registro = () => (
 <h1>Registro de usuario</h1>
 
 <form>
-<TextField id="standard-basic" label="Nombre" variant="standard" name="nombre" type="text"/>
+<TextField required id="standard-basic" label="Nombre" variant="standard" name="nombre" type="text"/>
 <br></br>
-<TextField id="standard-basic" label="Apellidos" variant="standard" name="apellidos" type="text"/>
+<TextField required id="standard-basic" label="Apellidos" variant="standard" name="apellidos" type="text"/>
 <br></br>
-<TextField id="standard-basic" label="Email" variant="standard" name="email" type="email"/>
+<TextField required id="standard-basic" label="Email" variant="standard" name="email" type="email"/>
 <br></br>
-<TextField id="standard-basic" label="Usuario" variant="standard" name="usuario" type="text"/>
+<TextField required id="standard-basic" label="Usuario" variant="standard" name="usuario" type="text"/>
 <br></br>
-<TextField id="standard-basic" label="Password" variant="standard" name="password" type="password" />
+<TextField required id="standard-basic" label="Password" variant="standard" name="password" type="password" />
 <br></br>
 <br></br>
 <Button variant="contained" name="btnRegistrar" type="submit">Ingresar</Button>
