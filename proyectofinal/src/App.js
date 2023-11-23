@@ -33,7 +33,7 @@ function InitialRedirect() {
     navigate('/Registro');
   }, [navigate]);
 
-  return null; // or loading component if needed
+  return null; 
 }
 
 
