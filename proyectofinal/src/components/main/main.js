@@ -136,6 +136,7 @@ const Main = () =>
         >
           <Grid item xs={12}>
             {/* ... */}
+            
           </Grid>
           <Grid item xs={6}>
           <h1> Blog de Notas</h1>
