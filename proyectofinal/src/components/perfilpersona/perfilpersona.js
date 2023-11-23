@@ -11,25 +11,28 @@ const Perfilpersona = () => {
   return (
   <div className={styles.Perfilpersona} data-testid="Perfilpersona">
 
-  <h1>Perfil de Estudiante</h1>
+  <h1>Perfil</h1>
   <form>
-    <TextField required id="standard-basic" label="Estudiante" variant="standard" name="student" type="text"/>
+    <TextField required id="standard-basic" label="Titulo" variant="standard" name="titulo" type="text"/>
     <br/>
-    <TextField required id="standard-basic" label="Clase" variant="standard" name="class" type="text"/>
-    <br/>
-    <TextField required id="standard-basic" label="Nota" variant="standard" name="grade" type="number"/>
+    <TextField required id="standard-basic" label="Nota" variant="standard" name="nota" type="text"/>
     <br/>
     <br/>
-    <Button variant="contained" name="AgregarNota" type="submit">Agregar</Button><a>│</a>
+    <Button variant="contained" name="AgregarNota" type="submit" href="./agregarNota">Agregar</Button><a>│</a>
     <Button variant="contained" name="EditarNota" type="reset">Editar</Button><a>│</a>
-    <Button variant="contained" name="EliminarNota" type="reset">EliminarNota</Button><a>│</a>
+    <Button variant="contained" name="EliminarNota" type="reset">Eliminar Nota</Button><a>│</a>
     <br/>
     <Button variant="contained" name="Cancelar" type="reset">Cancelar</Button>
     <br/>
   </form>
+
+  <br></br>
   </div>
   );
+
 };
+
+
 
 
 Perfilpersona.propTypes = {};
