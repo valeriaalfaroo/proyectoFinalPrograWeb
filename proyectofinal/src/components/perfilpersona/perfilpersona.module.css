@@ -1,3 +1,44 @@
 .Perfilpersona {
     text-align: center;
 }
+
+/* perfilpersona.module.css */
+
+.Perfilpersona {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+  }
+  
+  .Perfilpersona h1 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .Perfilpersona form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .Perfilpersona form > * {
+    margin-bottom: 15px;
+  }
+  
+  .Perfilpersona form a {
+    margin-right: 5px;
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .Perfilpersona form a:last-child {
+    margin-right: 0;
+  }
+ 
+  .Perfilpersona dashboard{
+    justify-content: "flex-start"
+  }

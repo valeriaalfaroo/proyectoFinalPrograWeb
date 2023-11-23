@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import styles from './registro.module.css';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 
 const Registro = () => (
   <div className={styles.Registro} data-testid="Registro">

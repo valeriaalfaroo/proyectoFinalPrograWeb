@@ -1,1 +1,45 @@
 .Registro {}
+
+/* registro.module.css */
+
+.Registro {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+  }
+  
+  .Registro h1 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .Registro form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .Registro form > * {
+    margin-bottom: 15px;
+  }
+  
+  .Registro form hr {
+    border: none;
+    height: 1px;
+    background-color: #ccc;
+    margin: 20px 0;
+  }
+  
+  .Registro form a {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .Registro form a:hover {
+    text-decoration: underline;
+  }
+  

@@ -1,3 +1,47 @@
 .Login{
     text-align: center;
 }
+
+/* login.module.css */
+
+.Login {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+  }
+  
+  .Login h1 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .Login form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .Login form > * {
+    margin-bottom: 15px;
+  }
+  
+  .Login form hr {
+    border: none;
+    height: 1px;
+    background-color: #ccc;
+    margin: 20px 0;
+  }
+  
+  .Login form a {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .Login form a:hover {
+    text-decoration: underline;
+  }
+  

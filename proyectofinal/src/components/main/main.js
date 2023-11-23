@@ -2,12 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './main.module.css';
 import TextField from "@mui/material/TextField";
-
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import Grid from "@mui/material/Grid";
 import Note from "../Notes/Notes";
 import axios from "axios";
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 
 const Main = () => 
   {
@@ -78,10 +79,51 @@ const Main = () =>
     const clearNotes = (event) => {
       setNotes();
     };
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const open = Boolean(anchorEl);
+    const handleClick = (event) => {
+      setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+      setAnchorEl(null);
+    };
   
+  
+    
     return (
-  
+      
   <div className={styles.Home}>
+   <div>
+      <Button
+        id="basic-button"
+        aria-controls={open ? 'basic-menu' : undefined}
+        aria-haspopup="true"
+        aria-expanded={open ? 'true' : undefined}
+        onClick={handleClick}
+      >
+        Dashboard
+      </Button>
+      <Menu
+        id="basic-menu"
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        MenuListProps={{
+          'aria-labelledby': 'basic-button',
+        }}
+      >
+        <MenuItem onClick={handleClose}>
+      <a href="./perfilpersona">Profile</a>
+    </MenuItem>
+    <MenuItem onClick={handleClose}>
+      <a href="./main">Home</a>
+    </MenuItem>
+    <MenuItem onClick={handleClose}>
+      <a href="./login">Logout</a>
+    </MenuItem>
+      </Menu>
+    </div>
+
         <Grid
           container
           spacing={2}
@@ -96,6 +138,7 @@ const Main = () =>
             {/* ... */}
           </Grid>
           <Grid item xs={6}>
+          <h1> Blog de Notas</h1>
             <Button onClick={callAPMockNotes} variant="contained" sx={{ mx: 2 }}>
               Ver notas
             </Button>
