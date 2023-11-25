@@ -9,7 +9,7 @@ import Note from "../Notes/Notes";
 import axios from "axios";
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-
+import {TextareaAutosize } from '@mui/material' ;
 const Main = () => 
   {
   
@@ -154,9 +154,29 @@ const Main = () =>
 
         <Card id="card-home" className={styles["card-home"]}>
           <Grid container spacing={4}>
-            {notes?.map((nota, index) => (
+            {notes?.map((nota, index) => 
+            (
+  
               <Grid item xs={6} key={index}>
-                <Note titulo="titulo" note={nota}></Note>
+                  <Note  titulo="titulo" note={nota}>  
+                  
+                  </Note>
+
+
+                <TextareaAutosize   
+                  aria-label="empty textarea"
+                  placeholder="Empty"
+                  width= "320px"
+                  font-family="IBM Plex Sans, sans-serif"
+                  font-size="0.875rem"
+                  font-weight="400"
+                  line-height="1.5"
+                  padding="12px"
+                  border-radius="12px 12px 0 12px"
+                defaultValue={nota.Content || ''}
+
+                />
+
               </Grid>
             ))}
           </Grid>
