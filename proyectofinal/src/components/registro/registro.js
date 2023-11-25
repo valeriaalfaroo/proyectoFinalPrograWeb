@@ -26,7 +26,7 @@ const Registro = () => {
   const handleSubmit = (e) => {
 
     axios
-      .post('URL_DEL_API', formData) 
+      .post('urlDelApi', formData) 
       .then((response) => {
        
         console.log(response.data);
