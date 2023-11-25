@@ -9,6 +9,7 @@ import Note from "../Notes/Notes";
 import axios from "axios";
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import Editar from '../editar/editar';
 
 const Main = () => 
   {
@@ -17,6 +18,7 @@ const Main = () =>
     const [authenticated, setAuthenticated] = React.useState();
     const [users, setUsers] = React.useState();
     const [notes, setNotes] = React.useState();
+    const [editar, setEdits] = React.useState();
   
     const urlDelApi = "http://10.17.19.22/api.php/records";
   
@@ -44,6 +46,29 @@ const Main = () =>
         CreatedAt: "2023-10-10 15:56:41",
       },
     ];
+    const mockEdits = [
+    {
+      NoteID: 4,
+      UserID: 4,
+      Title: "Nota 4",
+      Content: "nueva editable",
+      CreatedAt: "2023-10-10 15:56:41",
+    },
+    {
+      NoteID: 5,
+      UserID: 4,
+      Title: "nota 5",
+      Content: "This is the content of ToDo 3 for user 2.",
+      CreatedAt: "2023-10-10 15:56:41",
+    },
+    {
+      NoteID: 6,
+      UserID: 5,
+      Title: "nota 6",
+      Content: "This is the content of Task 13 for user 15.",
+      CreatedAt: "2023-10-10 15:56:41",
+    },
+  ];
     const onChancheInput = (event) => {
       let name = event.target.name;
       let value = event.target.value;
@@ -74,10 +99,18 @@ const Main = () =>
     const callAPMockNotes = (event) => {
       setNotes(mockNotes);
       setNotes([...mockNotes]);
-  
+      clearEdits();
+    };
+    const callApMockEdits = (event) => {
+      setEdits(mockEdits);
+      setEdits([...mockEdits]);
+      clearNotes();
     };
     const clearNotes = (event) => {
       setNotes();
+    };
+    const clearEdits = (event) => {
+      setEdits();
     };
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
@@ -143,6 +176,9 @@ const Main = () =>
             <Button onClick={callAPMockNotes} variant="contained" sx={{ mx: 2 }}>
               Ver notas
             </Button>
+            <Button onClick={callApMockEdits} variant="contained" sx={{ mx: 2 }}>
+              Editar Notas
+            </Button>
             <Button onClick={clearNotes} color="secondary" variant="text">
               Ocultar
             </Button>
@@ -161,6 +197,17 @@ const Main = () =>
             ))}
           </Grid>
         </Card>
+
+        <Card id="card-home" className={styles["card-home"]}>
+          <Grid container spacing={4}>
+            {editar?.map((editable, index) => (
+              <Grid item xs={6} key={index}>
+                <Editar titulo="titulo" edit={editable}></Editar>
+              </Grid>
+            ))}
+          </Grid>
+        </Card>
+
       </div>
     );
   };
