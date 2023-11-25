@@ -20,7 +20,7 @@ const Editar = (props) => (
     />
      <br />
     <Button color="secondary" variant="text">
-      Editar Notas
+      Ver Mis Notas
     </Button>
   </div>
 );
