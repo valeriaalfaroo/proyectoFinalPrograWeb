@@ -5,9 +5,13 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import { Link } from 'react-router-dom';
 
 const Perfilpersona = () => {
 
+
+
+ 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -16,6 +20,7 @@ const Perfilpersona = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
 
 
   return (
@@ -59,8 +64,8 @@ const Perfilpersona = () => {
     <br/>
     <br/>
     <Button variant="contained" name="AgregarNota" type="submit">Agregar</Button>
+    <Button variant="contained" name="EliminarNota" type="button">Eliminar Nota</Button>     
     <Button variant="contained" name="EditarNota" type="reset">Editar</Button>
-    <Button variant="contained" name="EliminarNota" type="reset">Eliminar Nota</Button>
     <Button variant="contained" name="Cancelar" type="reset">Cancelar</Button>
     <br/>
   </form>

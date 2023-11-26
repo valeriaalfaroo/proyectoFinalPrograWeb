@@ -2,8 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './editar.module.css';
 import TextField from "@mui/material/TextField";
-
 import Button from "@mui/material/Button";
+import {TextareaAutosize } from '@mui/material' ;
+
 const Editar = (props) => (
   <div className="Editar" data-testid="Editar">
     <TextField 
@@ -12,7 +13,8 @@ const Editar = (props) => (
       defaultValue={props.edit.Title}
       variant="standard"
     /><br></br>
-    <TextField
+
+    <TextareaAutosize className={styles["textarea"]}
       id="outlined-basic"
       name="usuario"
       defaultValue={props.edit.Content}
@@ -20,7 +22,7 @@ const Editar = (props) => (
     />
      <br />
     <Button color="secondary" variant="text">
-      Ver Mis Notas
+      Editar la nota
     </Button>
   </div>
 );

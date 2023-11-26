@@ -8,6 +8,7 @@ import Registro from './components/registro/registro';
 import Main from './components/main/main';
 import Perfilpersona from './components/perfilpersona/perfilpersona';
 import Borrar from './components/borrar/borrar';
+import Editar from './components/editar/editar';
 
 function App() {
   return (
