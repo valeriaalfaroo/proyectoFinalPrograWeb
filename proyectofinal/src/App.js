@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import Registro from './components/registro/registro';
 import Main from './components/main/main';
 import Perfilpersona from './components/perfilpersona/perfilpersona';
+import Borrar from './components/borrar/borrar';
 
 function App() {
   return (
@@ -19,7 +20,7 @@ function App() {
         <Route path="/Registro" element={<Registro />} />
         <Route path="/Main" element={<Main />} />
         <Route path="/Perfilpersona" element={<Perfilpersona />} />
-
+        <Route path="/Borrar" element={<Borrar />} />
         <Route path="/" element={<InitialRedirect />} />
       </Routes>
     </Router>
