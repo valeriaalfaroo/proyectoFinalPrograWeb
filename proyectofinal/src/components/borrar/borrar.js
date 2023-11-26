@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styles from './main.module.css';
+import styles from './borrar.module.css';
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
@@ -9,18 +9,25 @@ import Note from "../Notes/Notes";
 import axios from "axios";
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import {useEffect} from 'react';
+
 import {TextareaAutosize } from '@mui/material' ;
-const Main = () => 
-  {
+import { renderMatches } from 'react-router-dom';
+
+
+
+const Borrar = () => {
+
+
   
+
     const [formValues, setFormValues] = React.useState();
     const [authenticated, setAuthenticated] = React.useState();
     const [users, setUsers] = React.useState();
     const [notes, setNotes] = React.useState();
-  
+
     const urlDelApi = "http://10.17.19.22/api.php/records";
-  
-  
+
     const mockNotes = [
       {
         NoteID: 1,
@@ -87,13 +94,25 @@ const Main = () =>
     const handleClose = () => {
       setAnchorEl(null);
     };
-  
-   
-    return (
-      
-  <div className={styles.Home}>
-   <div>
-      <Button
+
+    useEffect(() => {
+      callAPMockNotes();
+    }, []);
+      //UseEffect sirve para cargar las notas cuando el componente cargue
+    
+    const deleteMockNote = (noteID) => {
+        // Se filtra la nota con el NoteID 
+        const updatedNotes = notes.filter((note) => note.NoteID !== noteID);
+        setNotes(updatedNotes);
+      };
+
+  return(
+  <div className={styles.Borrar} data-testid="Borrar">
+    
+        
+
+    <div>
+    <Button
         id="basic-button"
         aria-controls={open ? 'basic-menu' : undefined}
         aria-haspopup="true"
@@ -122,34 +141,12 @@ const Main = () =>
     </MenuItem>
       </Menu>
     </div>
+    
+<h2>Seleccione la nota que desea eliminar</h2>
 
-        <Grid
-          container
-          spacing={2}
-          style={{
-            inset: 0,
-            margin: "auto",
-            textAlign: "center",
-            maxWidth: "80%",
-          }}
-        >
-          <Grid item xs={12}>
-            {/* ... */}
-            
-          </Grid>
-          <Grid item xs={6}>
-          <h1> Blog de Notas</h1>
-            <Button onClick={callAPMockNotes} variant="contained" sx={{ mx: 2 }}>
-              Ver notas
-            </Button>
-            <Button onClick={clearNotes} color="secondary" variant="text">
-              Ocultar
-            </Button>
-          </Grid>
-        </Grid>
-  <br></br>
-  <br></br>
-  <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
 
         <Card id="card-home" className={styles["card-home"]}>
           <Grid container spacing={4}>
@@ -158,20 +155,24 @@ const Main = () =>
   
               <Grid item xs={6} key={index}>
                   <Note titulo="titulo" note={nota}>  
-                  
-                  </Note>
 
+                 
+                  
+                
+                  </Note>
+                  <button onClick={() => deleteMockNote(nota.NoteID)}>Delete</button>
               </Grid>
+              
             ))}
           </Grid>
-        </Card>
-      </div>
-    );
-  };
+          
+        </Card>          
+  </div>
+  )
+};
   
+Borrar.propTypes = {};
 
-Main.propTypes = {};
+Borrar.defaultProps = {};
 
-Main.defaultProps = {};
-
-export default Main;
+export default Borrar;
