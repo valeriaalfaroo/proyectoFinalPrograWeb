@@ -150,15 +150,14 @@ const Borrar = () => {
 
         <Card id="card-home" className={styles["card-home"]}>
           <Grid container spacing={4}>
-            {notes?.map((nota, index) => 
+            {notes?.map((nota) => //Se cambio esta linea, en vez de usar nota, index ahora solo es nota y key usa nota.NoteID para
+            //eliminar correctamente la nota, en caso contrario se eliminaria la nota de abajo primero.
+            //Tambien se cambio el key={index} por nota.NoteID para que funcione
             (
   
-              <Grid item xs={6} key={index}>
+               <Grid item xs={6} key={nota.NoteID}> 
                   <Note titulo="titulo" note={nota}>  
 
-                 
-                  
-                
                   </Note>
                   <button onClick={() => deleteMockNote(nota.NoteID)}>Delete</button>
               </Grid>
