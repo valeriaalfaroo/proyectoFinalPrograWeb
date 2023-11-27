@@ -119,7 +119,7 @@ const Borrar = () => {
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
       >
-        Dashboard
+        DASHBOARD
       </Button>
       <Menu
         id="basic-menu"

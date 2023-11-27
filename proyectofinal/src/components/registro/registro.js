@@ -26,7 +26,7 @@ const Registro = () => {
   const handleSubmit = (e) => {
 
     axios
-      .post('urlDelApi', formData) 
+     // .post(`${urlDelApi}/users`, formData) //por ahora handlesubmit solo redirecciona a login
       .then((response) => {
        
         console.log(response.data);
@@ -38,6 +38,8 @@ const Registro = () => {
        
       })
       .finally(() => {
+        window.location.href="/Login/"
+
        
       });
   };

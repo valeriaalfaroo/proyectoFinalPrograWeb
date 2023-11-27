@@ -21,6 +21,9 @@ const Perfilpersona = () => {
     setAnchorEl(null);
   };
 
+  const onClickBorrar = (event) => {
+    window.location.href='/Borrar';
+  }
 
 
   return (
@@ -64,7 +67,7 @@ const Perfilpersona = () => {
     <br/>
     <br/>
     <Button variant="contained" name="AgregarNota" type="submit">Agregar</Button>
-    <Button variant="contained" name="EliminarNota" type="button">Eliminar Nota</Button>     
+    <Button onClick={onClickBorrar} variant="contained" name="EliminarNota" type="button">Eliminar Nota</Button>     
     <Button variant="contained" name="EditarNota" type="reset">Editar</Button>
     <Button variant="contained" name="Cancelar" type="reset">Cancelar</Button>
     <br/>
