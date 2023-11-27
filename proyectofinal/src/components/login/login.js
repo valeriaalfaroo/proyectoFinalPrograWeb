@@ -62,9 +62,12 @@ const Login = () => {
       mockUser.password === formData.password
     ) {
       console.log("Usuario correcto");
+      window.location.href="/Perfilpersona/"
     } else {
       console.log("Usuario incorrecto");
+      alert("Ingrese un usuario y contraseña validos para continuar")
     }
+    
   };
 
   const reset = () =>{
