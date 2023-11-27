@@ -8,6 +8,7 @@ import Registro from './components/registro/registro';
 import Main from './components/main/main';
 import Perfilpersona from './components/perfilpersona/perfilpersona';
 import Borrar from './components/borrar/borrar';
+import Editar from './components/editar/editar';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/Main" element={<Main />} />
         <Route path="/Perfilpersona" element={<Perfilpersona />} />
         <Route path="/Borrar" element={<Borrar />} />
+        <Route path="/Editar" element={<Editar />} />
         <Route path="/" element={<InitialRedirect />} />
       </Routes>
     </Router>

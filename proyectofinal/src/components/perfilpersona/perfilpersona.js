@@ -24,7 +24,9 @@ const Perfilpersona = () => {
   const onClickBorrar = (event) => {
     window.location.href='/Borrar';
   }
-
+  const onClickEditar = (event) => {
+    window.location.href='/Editar';
+  }
 
   return (
   <div className={styles.Perfilpersona} data-testid="Perfilpersona">
@@ -68,7 +70,7 @@ const Perfilpersona = () => {
     <br/>
     <Button variant="contained" name="AgregarNota" type="submit">Agregar</Button>
     <Button onClick={onClickBorrar} variant="contained" name="EliminarNota" type="button">Eliminar Nota</Button>     
-    <Button variant="contained" name="EditarNota" type="reset">Editar</Button>
+    <Button onClick={onClickEditar} variant="contained" name="EditarNota" type="reset">Editar</Button>
     <Button variant="contained" name="Cancelar" type="reset">Cancelar</Button>
     <br/>
   </form>
