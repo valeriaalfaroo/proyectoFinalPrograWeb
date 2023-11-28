@@ -117,13 +117,13 @@ const Main = () =>
         }}
       >
         <MenuItem onClick={handleClose}>
-      <a href="./perfilpersona">Profile</a>
+      <a href="../perfilpersona">Profile</a>
     </MenuItem>
     <MenuItem onClick={handleClose}>
-      <a href="./main">Home</a>
+      <a href="../main">Home</a>
     </MenuItem>
     <MenuItem onClick={handleClose}>
-      <a href="./login">Logout</a>
+      <a href="../login">Logout</a>
     </MenuItem>
       </Menu>
     </div>
