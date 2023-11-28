@@ -69,9 +69,12 @@ const Perfilpersona = () => {
     <br/>
     <br/>
     <Button variant="contained" name="AgregarNota" type="submit">Agregar</Button>
+    <Button variant="contained" name="Cancelar" type="reset">Cancelar</Button>
+    <br></br>
+    <h2>Eliminar/Editar Nota</h2>
     <Button onClick={onClickBorrar} variant="contained" name="EliminarNota" type="button">Eliminar Nota</Button>     
     <Button onClick={onClickEditar} variant="contained" name="EditarNota" type="reset">Editar</Button>
-    <Button variant="contained" name="Cancelar" type="reset">Cancelar</Button>
+    
     <br/>
   </form>
 
