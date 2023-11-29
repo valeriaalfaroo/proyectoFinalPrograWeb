@@ -21,7 +21,7 @@ const Main = () =>
     const [notes, setNotes] = React.useState();
 
   
-    const urlDelApi = "http://10.17.19.22/api.php/records";
+    const urlDelApi = "http://localhost:8080/api/note/all";
   
   
     const mockNotes = [
@@ -59,7 +59,7 @@ const Main = () =>
     };
     const callAPINotes = (event) => {
       axios
-        .get(`${urlDelApi}/Notes`)
+        .get(`${urlDelApi}/notas`)
         .then(function (response) {
           // handle success
           console.log(response);
@@ -144,7 +144,7 @@ const Main = () =>
           </Grid>
           <Grid item xs={6}>
           <h1> Blog de Notas</h1>
-            <Button onClick={callAPMockNotes} variant="contained" sx={{ mx: 2 }}>
+            <Button onClick={callAPINotes} variant="contained" sx={{ mx: 2 }}>
               Ver notas
             </Button>
             <Button onClick={clearNotes} color="secondary" variant="text">
