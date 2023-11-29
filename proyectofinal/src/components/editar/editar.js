@@ -21,7 +21,7 @@ const Editar = () => {
   const [users, setUsers] = React.useState();
   const [notes, setNotes] = React.useState();
 
-  const urlDelApi = "http://10.17.19.22/api.php/records";
+  const urlDelApi = "http://localhost:8080/api/note/byid";
   
   const mockNotes = [
     {
@@ -59,7 +59,7 @@ const Editar = () => {
 
   const callAPINotes = (event) => {
     axios
-      .get(`${urlDelApi}/Notes`)
+      .get(`${urlDelApi}/notas`)
       .then(function (response) {
         console.log(response);
         console.log(response.data.records);

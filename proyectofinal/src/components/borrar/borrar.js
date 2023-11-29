@@ -26,7 +26,7 @@ const Borrar = () => {
     const [users, setUsers] = React.useState();
     const [notes, setNotes] = React.useState();
 
-    const urlDelApi = "http://10.17.19.22/api.php/records";
+    const urlDelApi = "http://localhost:8080/api/note/all";
 
     const mockNotes = [
       {
@@ -62,7 +62,7 @@ const Borrar = () => {
     };
     const callAPINotes = (event) => {
       axios
-        .get(`${urlDelApi}/Notes`)
+        .get(`${urlDelApi}/notas`)
         .then(function (response) {
           // handle success
           console.log(response);

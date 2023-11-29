@@ -59,7 +59,7 @@ const Main = () =>
     };
     const callAPINotes = (event) => {
       axios
-        .get(`${urlDelApi}/notas`)
+        .get(`${urlDelApi}/notas`,)
         .then(function (response) {
           // handle success
           console.log(response);
