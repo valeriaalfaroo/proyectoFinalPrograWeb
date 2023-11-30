@@ -16,15 +16,13 @@ import { renderMatches } from 'react-router-dom';
 
 
 
-const Borrar = () => {
-
-
-  
+const Borrar = (props) => {
 
     const [formValues, setFormValues] = React.useState();
     const [authenticated, setAuthenticated] = React.useState();
     const [users, setUsers] = React.useState();
     const [notes, setNotes] = React.useState();
+    const [user,setUser]= React.useState(props.user);
 
     const urlDelApi = "http://localhost:8080/api/note/all";
 
@@ -142,7 +140,7 @@ const Borrar = () => {
       </Menu>
     </div>
     
-<h2>Seleccione la nota que desea eliminar</h2>
+<h2>{user?.usuario} seleccione la nota que desea eliminar</h2>
 
         <br></br>
         <br></br>

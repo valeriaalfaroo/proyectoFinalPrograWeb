@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import logo from './logo.svg';
 import './App.css';
 import  Login from './components/login/login';
@@ -11,6 +11,12 @@ import Borrar from './components/borrar/borrar';
 import Editar from './components/editar/editar';
 
 function App() {
+  const[user,setUser]=React.useState();
+
+  useEffect(()=>{
+    const usuario=localStorage.getItem("user"); 
+    setUser(JSON.parse(usuario));
+  },[])
   return (
     <div className="App">
       
@@ -19,10 +25,10 @@ function App() {
       <Routes>
         <Route path="/Login" element={<Login />} />
         <Route path="/Registro" element={<Registro />} />
-        <Route path="/Main" element={<Main />} />
-        <Route path="/Perfilpersona" element={<Perfilpersona />} />
-        <Route path="/Borrar" element={<Borrar />} />
-        <Route path="/Editar" element={<Editar />} />
+        <Route path="/Main" element={<Main user={user} />} />
+        <Route path="/Perfilpersona" element={<Perfilpersona user={user}/>} />
+        <Route path="/Borrar" element={<Borrar user={user} />} />
+        <Route path="/Editar" element={<Editar user={user} />} />
         <Route path="/" element={<InitialRedirect />} />
       </Routes>
     </Router>

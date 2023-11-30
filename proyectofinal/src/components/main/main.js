@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import styles from './main.module.css';
 import TextField from "@mui/material/TextField";
@@ -12,18 +12,22 @@ import MenuItem from '@mui/material/MenuItem';
 import {TextareaAutosize } from '@mui/material' ;
 
 
-const Main = () => 
+const Main = (props) => 
   {
   
     const [formValues, setFormValues] = React.useState();
     const [authenticated, setAuthenticated] = React.useState();
     const [users, setUsers] = React.useState();
     const [notes, setNotes] = React.useState();
-
+    const [user,setUser]= React.useState(props.user);
   
     const urlDelApi = "http://localhost:8080/api/note/all";
   
-  
+    useEffect(()=>{
+      const user=localStorage.getItem("user"); 
+      setUser(props.user);
+    },[])
+
     const mockNotes = [
       {
         NoteID: 1,
@@ -127,7 +131,7 @@ const Main = () =>
     </MenuItem>
       </Menu>
     </div>
-
+      <h1>Bienvenido {user?.usuario}</h1>
         <Grid
           container
           spacing={2}
