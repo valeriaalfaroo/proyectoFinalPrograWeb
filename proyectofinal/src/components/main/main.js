@@ -59,22 +59,23 @@ const Main = () =>
     };
     const callAPINotes = (event) => {
       axios
-        .get(`${urlDelApi}/notas`,)
+        .get(`${urlDelApi}/notas`,  {
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+            // Otros encabezados si son necesarios
+          },
+        })
         .then(function (response) {
-          // handle success
           console.log(response);
           console.log(response.data.records);
           console.log(response.statusText);
           setNotes(response.data.records);
         })
         .catch(function (error) {
-          // handle error
           console.log(error);
-        })
-        .finally(function () {
-          // always executed
         });
     };
+    
     const callAPMockNotes = (event) => {
       setNotes(mockNotes);
       setNotes([...mockNotes]);
