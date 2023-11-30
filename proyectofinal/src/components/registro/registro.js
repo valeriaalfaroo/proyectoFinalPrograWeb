@@ -22,11 +22,18 @@ const Registro = () => {
     setFormData(''); 
   }
 
-  const urlDelApi = "http://10.17.19.22/api.php/records";
+  const urlDelApi = "http://localhost:8080/api/user";
   const handleSubmit = (e) => {
 
     axios
-     // .post(`${urlDelApi}/users`, formData) //por ahora handlesubmit solo redirecciona a login
+      .post(`${urlDelApi}/usuario`, formData ,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+        },
+      }
+      ) 
       .then((response) => {
        
         console.log(response.data);
@@ -38,7 +45,7 @@ const Registro = () => {
        
       })
       .finally(() => {
-        window.location.href="/Login/"
+        //window.location.href="/Login/"
 
        
       });
