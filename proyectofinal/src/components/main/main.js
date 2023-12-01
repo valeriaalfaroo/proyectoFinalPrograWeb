@@ -21,7 +21,7 @@ const Main = () =>
     const [notes, setNotes] = React.useState();
 
   
-    const urlDelApi = "http://localhost:8080/api/note/all";
+    const urlDelApi = "http://localhost:8080/api/user/all";
   
   
     const mockNotes = [
@@ -59,7 +59,7 @@ const Main = () =>
     };
     const callAPINotes = (event) => {
       axios
-        .get(`${urlDelApi}/notas`,  {
+        .get(`${urlDelApi}`,  {
           headers: {
             'Access-Control-Allow-Origin': '*',
             // Otros encabezados si son necesarios
