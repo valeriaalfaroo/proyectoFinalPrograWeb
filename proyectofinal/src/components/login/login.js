@@ -59,7 +59,8 @@ const Login = () => {
       .then(function (response) {
         // handle success
         console.log("data", response.data.records);
-       
+       localStorage.setItem("user",JSON.stringify(response.data.records[0]));
+       window.location.href="../main/"
       })
       .catch(function (error) {
         // handle error
@@ -67,6 +68,7 @@ const Login = () => {
       })
       .finally(function () {
         // always executed
+       
       });
   };
 
@@ -78,7 +80,8 @@ const Login = () => {
       mockUser.password === formData.password
     ) {
       console.log("Usuario correcto");
-      window.location.href="../main/"
+      
+     window.location.href="../main/"
     } else {
       console.log("Usuario incorrecto");
       alert("Ingrese un usuario y contraseña validos para continuar")

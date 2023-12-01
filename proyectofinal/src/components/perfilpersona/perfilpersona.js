@@ -7,11 +7,9 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { Link } from 'react-router-dom';
 
-const Perfilpersona = () => {
+const Perfilpersona = (props) => {
 
-
-
- 
+  const [user,setUser]= React.useState(props.user);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -61,7 +59,7 @@ const Perfilpersona = () => {
       </Menu>
     </div>
 
-  <h1>Perfil</h1>
+  <h1>Perfil: {user?.usuario}</h1>
   <form>
     <TextField required id="standard-basic" label="Titulo" variant="standard" name="titulo" type="text"/>
     <br/>

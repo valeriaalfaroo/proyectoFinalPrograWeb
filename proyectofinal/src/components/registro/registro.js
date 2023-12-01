@@ -37,7 +37,7 @@ const Registro = () => {
       .then((response) => {
        
         console.log(response.data);
-       
+        window.location.href="/Login/"
       })
       .catch((error) => {
        
@@ -45,12 +45,13 @@ const Registro = () => {
        
       })
       .finally(() => {
-        //window.location.href="/Login/"
+       
 
        
       });
   };
 
+  
   return (
     <div className={styles.Registro} data-testid="Registro">
       <h1>Registro de usuario</h1>
