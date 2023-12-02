@@ -6,6 +6,7 @@ import Button from '@mui/material/Button';
 import axios from 'axios';
 
 
+
 const Login = () => {
   const [formData, setFormData] = useState({
     usuario: '',
@@ -13,18 +14,6 @@ const Login = () => {
   });
 
 
-  const mockUser = {
-    usuario: 'admin',
-    password:'admin',
-    };
-
-  
-
-  const callAPMockUsers = (event) => {
-    setFormData(mockUser);
-    setFormData([...mockUser]);
-
-  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -34,59 +23,41 @@ const Login = () => {
   const urlDelApi = "http://localhost:8080/api/user/all";
 
   const callAPIAuthenticate = (event) => {
-    const data = formData;
-    console.log("data");
+    const data = {
+      username: formData.usuario,
+    password: formData.password
+    };
+    console.log("data",data);
     axios
-      .get(
-        `${urlDelApi}/USUARIO?filter=Nombre_Usuario,eq,${formData.usuario,
-          {
-            withCredentials: true,
-            headers: {
-              'Content-Type': 'application/json',
-              'Access-Control-Allow-Origin': '*',
-            },
-          }
-        }&filter=Contraseña,eq,${formData.password,
-          {
-            withCredentials: true,
-            headers: {
-              'Content-Type': 'application/json',
-              'Access-Control-Allow-Origin': '*',
-            },
-          }}`
-      
-        )
+    .post(
+      `${urlDelApi}?filter=Nombre_Usuario,eq,${formData.usuario}&filter=Contraseña,eq,${formData.password}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      },
+    })
       .then(function (response) {
         // handle success
         console.log("data", response.data.records);
-       localStorage.setItem("user",JSON.stringify(response.data.records[0]));
-       window.location.href="../main/"
+        localStorage.setItem("user", JSON.stringify(response.data.records[0]));
+        window.location.href = '../main/';
+      // localStorage.setItem("user",JSON.stringify(response.data.records[0]));
       })
       .catch(function (error) {
         // handle error
+        alert("Ingrese un usuario y contraseña validos para continuar");
         console.log(error);
       })
       .finally(function () {
         // always executed
+
        
       });
   };
 
   const onClickBtn = () => {
-    console.log("click", formData);
-
-    if (
-      mockUser.usuario === formData.usuario &&
-      mockUser.password === formData.password
-    ) {
-      console.log("Usuario correcto");
-      
-     window.location.href="../main/"
-    } else {
-      console.log("Usuario incorrecto");
-      alert("Ingrese un usuario y contraseña validos para continuar")
-    }
-    
+    console.log("usuario", formData);
+    callAPIAuthenticate();
   };
 
   const reset = () =>{
