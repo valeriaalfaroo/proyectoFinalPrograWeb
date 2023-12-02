@@ -6,10 +6,10 @@ import axios from 'axios';
 
 const Registro = () => {
   const [formData, setFormData] = useState({
-    nombre: '',
-    apellidos: '',
+    name: '',
+    lastnames: '',
     email: '',
-    usuario: '',
+    username: '',
     password: '',
   });
 
@@ -18,15 +18,29 @@ const Registro = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const reset = () =>{
-    setFormData(''); 
-  }
+  const reset = () => {
+    setFormData({
+      name: '',
+      lastnames: '',
+      email: '',
+      username: '',
+      password: '',
+    });
+  };
+  
 
   const urlDelApi = "http://localhost:8080/api/user";
   const handleSubmit = (e) => {
-
+    const params = {
+      name: formData.name,
+      lastnames: formData.lastnames,
+      email: formData.email,
+      username: formData.username,
+      password: formData.password
+    };
     axios
-      .post(`${urlDelApi}/usuario`, formData ,
+
+      .post(urlDelApi,formData ,
       {
         headers: {
           'Content-Type': 'application/json',
@@ -37,7 +51,9 @@ const Registro = () => {
       .then((response) => {
        
         console.log(response.data);
-        window.location.href="/Login/"
+
+        console.log(params);
+        
       })
       .catch((error) => {
        
@@ -46,6 +62,7 @@ const Registro = () => {
       })
       .finally(() => {
        
+        //window.location.href="/Login/"
 
        
       });
@@ -58,29 +75,29 @@ const Registro = () => {
       <form>
         <TextField
           required
-          id="standard-basic"
+          id="name-input"
           label="Nombre"
           variant="standard"
-          name="nombre"
+          name="name"
           type="text"
-          value={formData.nombre}
+          value={formData.name}
           onChange={handleChange}
         />
         <br></br>
         <TextField
           required
-          id="standard-basic"
+          id="lastname-input"
           label="Apellidos"
           variant="standard"
-          name="apellidos"
+          name="lastnames"
           type="text"
-          value={formData.apellidos}
+          value={formData.lastnames}
           onChange={handleChange}
         />
         <br></br>
         <TextField
           required
-          id="standard-basic"
+          id="email-input"
           label="Email"
           variant="standard"
           name="email"
@@ -91,21 +108,21 @@ const Registro = () => {
         <br></br>
         <TextField
           required
-          id="standard-basic"
+          id="user-input"
           label="Usuario"
           variant="standard"
-          name="usuario"
+          name="username"
           type="text"
-          value={formData.usuario}
+          value={formData.username}
           onChange={handleChange}
         />
         <br></br>
         <TextField
           required
-          id="standard-basic"
+          id="passw-input"
           label="Password"
           variant="standard"
-          name="password"
+      name="password"
           type="password"
           value={formData.password}
           onChange={handleChange}
