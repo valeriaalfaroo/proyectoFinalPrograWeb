@@ -40,7 +40,7 @@ const Registro = () => {
     };
     axios
 
-      .post(urlDelApi,formData ,
+      .post(urlDelApi,formData,
       {
         headers: {
           'Content-Type': 'application/json',
@@ -53,7 +53,7 @@ const Registro = () => {
         console.log(response.data);
 
         console.log(params);
-        
+        window.location.href="../Login/"
       })
       .catch((error) => {
        
@@ -62,7 +62,7 @@ const Registro = () => {
       })
       .finally(() => {
        
-        //window.location.href="/Login/"
+       
 
        
       });
