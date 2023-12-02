@@ -31,13 +31,6 @@ const Registro = () => {
 
   const urlDelApi = "http://localhost:8080/api/user";
   const handleSubmit = (e) => {
-    const params = {
-      name: formData.name,
-      lastnames: formData.lastnames,
-      email: formData.email,
-      username: formData.username,
-      password: formData.password
-    };
     axios
 
       .post(urlDelApi,formData,
@@ -52,7 +45,7 @@ const Registro = () => {
        
         console.log(response.data);
 
-        console.log(params);
+        console.log(formData);
         window.location.href="../Login/"
       })
       .catch((error) => {
