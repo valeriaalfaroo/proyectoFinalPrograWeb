@@ -21,7 +21,7 @@ const Main = (props) =>
     const [notes, setNotes] = React.useState();
     const [user,setUser]= React.useState(props.user);
   
-    const urlDelApi = "http://localhost:8080/api/user/all";
+    const urlDelApi = "http://localhost:8080/api/note/all";
   
     useEffect(()=>{
       const user=localStorage.getItem("user"); 
@@ -62,8 +62,11 @@ const Main = (props) =>
       setFormValues({ ...formValues, [name]: value });
     };
     const callAPINotes = (event) => {
+      const params = {
+        id: '1',
+      };
       axios
-        .get(`${urlDelApi}`,  {
+        .get(`${urlDelApi}`,{params},  {
           headers: {
             'Access-Control-Allow-Origin': '*',
             // Otros encabezados si son necesarios
