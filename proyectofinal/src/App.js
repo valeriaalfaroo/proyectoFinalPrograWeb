@@ -9,7 +9,7 @@ import Main from './components/main/main';
 import Perfilpersona from './components/perfilpersona/perfilpersona';
 import Borrar from './components/borrar/borrar';
 import Editar from './components/editar/editar';
-import ParentComponent from './components/ParentComponent/ParentComponent';
+import NotasId from './components/NotasID/NotasID';
 
 function App() {
   const[user,setUser]=React.useState();
@@ -24,7 +24,7 @@ function App() {
 
       <Router>
       <Routes>
-      <Route path="/Parent" element={<ParentComponent />} />
+      <Route path="/Notasid" element={<NotasId />} />
 
         <Route path="/Login" element={<Login />} />
         <Route path="/Registro" element={<Registro />} />
