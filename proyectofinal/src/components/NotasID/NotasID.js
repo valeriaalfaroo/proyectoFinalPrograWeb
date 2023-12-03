@@ -15,7 +15,7 @@ const NotasId = () => {
       try {
         const urlDelApi = "http://localhost:8080/api/note/all";
         const params = {
-          id: '2',   // userId: userId, // Suponiendo que el parámetro esperado por la API es userId
+          id: '1',   // userId: userId, // Suponiendo que el parámetro esperado por la API es userId
         };
         const response = await axios.get(urlDelApi, { params });
         setNotes(response.data);

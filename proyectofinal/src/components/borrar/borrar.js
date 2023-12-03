@@ -60,7 +60,7 @@ const Borrar = (props) => {
     };
     const callAPINotes = (event) => {
       axios
-        .get(`${urlDelApi}/notas`)
+        .get(`${urlDelApi}`)
         .then(function (response) {
           // handle success
           console.log(response);
