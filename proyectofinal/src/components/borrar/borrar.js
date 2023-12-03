@@ -60,7 +60,7 @@ const Borrar = (props) => {
     };
     const callAPINotes = (event) => {
       axios
-        .get(`${urlDelApi}/notas`)
+        .get(`${urlDelApi}/notas`,)
         .then(function (response) {
           // handle success
           console.log(response);
@@ -76,11 +76,11 @@ const Borrar = (props) => {
           // always executed
         });
     };
-    const callAPMockNotes = (event) => {
-      setNotes(mockNotes);
-      setNotes([...mockNotes]);
-  
-    };
+   // const callAPMockNotes = (event) => {
+   //   setNotes(mockNotes);
+   //   setNotes([...mockNotes]);
+  //
+  //  };
     const clearNotes = (event) => {
       setNotes();
     };
@@ -94,13 +94,18 @@ const Borrar = (props) => {
     };
 
     useEffect(() => {
-      callAPMockNotes();
+      callAPINotes(); //Se cambio callAPMockNotes por callAPINotes
     }, []);
       //UseEffect sirve para cargar las notas cuando el componente cargue
     
-    const deleteMockNote = (noteID) => {
+ //   const deleteMockNote = (noteID) => {
         // Se filtra la nota con el NoteID 
-        const updatedNotes = notes.filter((note) => note.NoteID !== noteID);
+        // const updatedNotes = notes.filter((note) => note.NoteID !== noteID);
+        // setNotes(updatedNotes);
+   //   };
+    const deleteApiNote = (ID_Notas) => {
+        // Se filtra la nota con el ID_Notas 
+        const updatedNotes = notes.filter((note) => note.ID_Notas !== ID_Notas);
         setNotes(updatedNotes);
       };
 
@@ -140,7 +145,7 @@ const Borrar = (props) => {
       </Menu>
     </div>
     
-<h2>{user?.usuario} seleccione la nota que desea eliminar</h2>
+<h2>{user?.usuario} Seleccione la nota que desea eliminar</h2>
 
         <br></br>
         <br></br>
@@ -148,16 +153,17 @@ const Borrar = (props) => {
 
         <Card id="card-home" className={styles["card-home"]}>
           <Grid container spacing={4}>
-            {notes?.map((nota) => //Se cambio esta linea, en vez de usar nota, index ahora solo es nota y key usa nota.NoteID para
+            {notes?.map((nota) => 
+            //Se cambio esta linea, en vez de usar nota, index ahora solo es nota y key usa nota.NoteID para
             //eliminar correctamente la nota, en caso contrario se eliminaria la nota de abajo primero.
             //Tambien se cambio el key={index} por nota.NoteID para que funcione
             (
   
-               <Grid item xs={6} key={nota.NoteID}> 
+               <Grid item xs={6} key={nota.ID_Notas}> 
                   <Note titulo="titulo" note={nota}>  
 
                   </Note>
-                  <button onClick={() => deleteMockNote(nota.NoteID)}>Delete</button>
+                  <button onClick={() => deleteApiNote(nota.ID_Notas)}>Delete</button>
               </Grid>
               
             ))}
