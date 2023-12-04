@@ -26,6 +26,9 @@ const Perfilpersona = (props) => {
     window.location.href='/Editar';
   }
 
+  //metodo para agregar nota a base de datos
+  
+  
   return (
   <div className={styles.Perfilpersona} data-testid="Perfilpersona">
 <div>

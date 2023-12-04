@@ -60,7 +60,7 @@ const Borrar = (props) => {
     };
     const callAPINotes = (event) => {
       axios
-        .get(`${urlDelApi}/notas`,)
+        .get(`${urlDelApi}`)
         .then(function (response) {
           // handle success
           console.log(response);
@@ -76,11 +76,11 @@ const Borrar = (props) => {
           // always executed
         });
     };
-   // const callAPMockNotes = (event) => {
-   //   setNotes(mockNotes);
-   //   setNotes([...mockNotes]);
-  //
-  //  };
+    const callAPMockNotes = (event) => {
+      setNotes(mockNotes);
+      setNotes([...mockNotes]);
+  
+    };
     const clearNotes = (event) => {
       setNotes();
     };
@@ -94,76 +94,48 @@ const Borrar = (props) => {
     };
 
     useEffect(() => {
-      callAPINotes(); //Se cambio callAPMockNotes por callAPINotes
+      callAPMockNotes();
     }, []);
       //UseEffect sirve para cargar las notas cuando el componente cargue
     
- //   const deleteMockNote = (noteID) => {
+    const deleteMockNote = (noteID) => {
         // Se filtra la nota con el NoteID 
-        // const updatedNotes = notes.filter((note) => note.NoteID !== noteID);
-        // setNotes(updatedNotes);
-   //   };
-    const deleteApiNote = (ID_Notas) => {
-        // Se filtra la nota con el ID_Notas 
-        const updatedNotes = notes.filter((note) => note.ID_Notas !== ID_Notas);
+        const updatedNotes = notes.filter((note) => note.NoteID !== noteID);
         setNotes(updatedNotes);
       };
-
+      
+      const volver = () => {
+        window.location.href="/Perfilpersona"
+      }
   return(
   <div className={styles.Borrar} data-testid="Borrar">
     
-        
-
-    <div>
-    <Button
-        id="basic-button"
-        aria-controls={open ? 'basic-menu' : undefined}
-        aria-haspopup="true"
-        aria-expanded={open ? 'true' : undefined}
-        onClick={handleClick}
-      >
-        DASHBOARD
+    <Button variant="outlined" onClick={volver}>
+        Volver
       </Button>
-      <Menu
-        id="basic-menu"
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
-        MenuListProps={{
-          'aria-labelledby': 'basic-button',
-        }}
-      >
-        <MenuItem onClick={handleClose}>
-      <a href="./perfilpersona">Profile</a>
-    </MenuItem>
-    <MenuItem onClick={handleClose}>
-      <a href="./main">Home</a>
-    </MenuItem>
-    <MenuItem onClick={handleClose}>
-      <a href="./login">Logout</a>
-    </MenuItem>
-      </Menu>
-    </div>
+<h1>Borrar Notas</h1>
     
-<h2>{user?.usuario} Seleccione la nota que desea eliminar</h2>
+    
+<h2>{user?.usuario} seleccione la nota que desea eliminar</h2>
 
         <br></br>
         <br></br>
         <br></br>
 
         <Card id="card-home" className={styles["card-home"]}>
+         
+         
           <Grid container spacing={4}>
-            {notes?.map((nota) => 
-            //Se cambio esta linea, en vez de usar nota, index ahora solo es nota y key usa nota.NoteID para
+            {notes?.map((nota) => //Se cambio esta linea, en vez de usar nota, index ahora solo es nota y key usa nota.NoteID para
             //eliminar correctamente la nota, en caso contrario se eliminaria la nota de abajo primero.
             //Tambien se cambio el key={index} por nota.NoteID para que funcione
             (
-  
-               <Grid item xs={6} key={nota.ID_Notas}> 
+                 
+               <Grid item xs={6} key={nota.NoteID}> 
                   <Note titulo="titulo" note={nota}>  
 
                   </Note>
-                  <button onClick={() => deleteApiNote(nota.ID_Notas)}>Delete</button>
+                  <button onClick={() => deleteMockNote(nota.NoteID)}>Delete</button>
               </Grid>
               
             ))}

@@ -62,23 +62,27 @@ const Main = (props) =>
       setFormValues({ ...formValues, [name]: value });
     };
     const callAPINotes = (event) => {
+      const params = {
+        id: '1',
+      };
       axios
-        .get(`${urlDelApi}/notas`,)
+        .get(`${urlDelApi}`,{params},  {
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+            // Otros encabezados si son necesarios
+          },
+        })
         .then(function (response) {
-          // handle success
           console.log(response);
           console.log(response.data.records);
           console.log(response.statusText);
           setNotes(response.data.records);
         })
         .catch(function (error) {
-          // handle error
           console.log(error);
-        })
-        .finally(function () {
-          // always executed
         });
     };
+    
     const callAPMockNotes = (event) => {
       setNotes(mockNotes);
       setNotes([...mockNotes]);
