@@ -58,13 +58,10 @@ const Editar = (props) => {
       const urlDelApi = "http://localhost:8080/api/note/byid";
       const { id, title, content } = editingNote;
       const params = {
-        id: '9',
+        id: '1',
       };
-      //await axios.put(urlDelApi, { id, title, content });
-       await axios.put(urlDelApi, editingNote,params);
+      await axios.put(urlDelApi, editingNote,params);
       setEditMode(false);
-      //  volver a cargar las notas después de la edición 
-      // fetchData();
     } catch (error) {
       console.error(error);
     }
@@ -72,37 +69,43 @@ const Editar = (props) => {
 
   const handleCancelEdit = () => {
     setEditMode(false);
-    // Puedes reiniciar la nota de edición si lo deseas
     setEditingNote({ id: '', title: '', content: '' });
   };
-  const volver = () =>{
+
+  const volver = () => {
     window.location.href="/Perfilpersona"
   }
 
   return (
-    <div>
-      <h1>Editar Notas</h1>
+    <div className={styles.container}>
       <Button variant="outlined" onClick={volver}>
         Volver
-      </Button> <br></br><br></br>
+      </Button>
+      <h1>Editar Notas</h1>
       <Button variant="contained" onClick={handleShowNotes}>
         Mostrar Notas
       </Button>
-      <Button variant="contained" onClick={handleHideNotes}>
+      <Button variant="text" onClick={handleHideNotes} color='secondary'>
         Ocultar Notas
       </Button>
 
       {showNotes && (
-        <Grid container spacing={2}>
+        <Grid container spacing={2} className={styles.notesContainer}>
           {notes.map((note) => (
             <Grid item key={note.id} xs={12} sm={6} md={4}>
-              <div>
-                <h3>{note.title}</h3>
-                <p>{note.content}</p>
+              <div className={styles.noteCard}>
+                <h3 className={styles.noteTitle}>{note.title}</h3>
+                <p className={styles.noteContent}>{note.content}</p>
                 {!editMode && (
-                  <Button variant="outlined" onClick={() => handleEnterEditMode(note)}>
+                  <div className={styles.centeredButton}>
+                  <Button
+                    variant="outlined"
+                    onClick={() => handleEnterEditMode(note)}
+                    className={styles.editBtn}
+                  >
                     Editar
                   </Button>
+                </div>
                 )}
               </div>
             </Grid>
@@ -111,22 +114,29 @@ const Editar = (props) => {
       )}
 
       {editMode && (
-        <div>
-          
+        <div className={styles.editForm}>
           <TextField
             label="Nuevo Título"
             value={editingNote.title}
             onChange={(e) => setEditingNote({ ...editingNote, title: e.target.value })}
+            className={styles.textField}
           />
+          <br></br>
+          <br></br>
           <TextField
             label="Nuevo Contenido"
             value={editingNote.content}
             onChange={(e) => setEditingNote({ ...editingNote, content: e.target.value })}
-          />
-          <Button variant="contained" onClick={handleSaveChanges}>
+            className={styles.textField}
+          />      
+          <br></br>
+          <br></br>
+          <Button variant="contained" onClick={handleSaveChanges} className={styles.saveBtn}>
             Guardar Cambios
           </Button>
-          <Button variant="contained" onClick={handleCancelEdit}>
+          <br></br>
+          <br></br>
+          <Button variant="contained" onClick={handleCancelEdit} className={styles.cancelBtn}>
             Cancelar Edición
           </Button>
         </div>

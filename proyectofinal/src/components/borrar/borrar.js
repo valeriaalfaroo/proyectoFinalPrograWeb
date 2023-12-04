@@ -103,42 +103,18 @@ const Borrar = (props) => {
         const updatedNotes = notes.filter((note) => note.NoteID !== noteID);
         setNotes(updatedNotes);
       };
-
+      
+      const volver = () => {
+        window.location.href="/Perfilpersona"
+      }
   return(
   <div className={styles.Borrar} data-testid="Borrar">
     
-        
-
-    <div>
-    <Button
-        id="basic-button"
-        aria-controls={open ? 'basic-menu' : undefined}
-        aria-haspopup="true"
-        aria-expanded={open ? 'true' : undefined}
-        onClick={handleClick}
-      >
-        DASHBOARD
+    <Button variant="outlined" onClick={volver}>
+        Volver
       </Button>
-      <Menu
-        id="basic-menu"
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
-        MenuListProps={{
-          'aria-labelledby': 'basic-button',
-        }}
-      >
-        <MenuItem onClick={handleClose}>
-      <a href="./perfilpersona">Profile</a>
-    </MenuItem>
-    <MenuItem onClick={handleClose}>
-      <a href="./main">Home</a>
-    </MenuItem>
-    <MenuItem onClick={handleClose}>
-      <a href="./login">Logout</a>
-    </MenuItem>
-      </Menu>
-    </div>
+<h1>Borrar Notas</h1>
+    
     
 <h2>{user?.usuario} seleccione la nota que desea eliminar</h2>
 
@@ -147,12 +123,14 @@ const Borrar = (props) => {
         <br></br>
 
         <Card id="card-home" className={styles["card-home"]}>
+         
+         
           <Grid container spacing={4}>
             {notes?.map((nota) => //Se cambio esta linea, en vez de usar nota, index ahora solo es nota y key usa nota.NoteID para
             //eliminar correctamente la nota, en caso contrario se eliminaria la nota de abajo primero.
             //Tambien se cambio el key={index} por nota.NoteID para que funcione
             (
-  
+                 
                <Grid item xs={6} key={nota.NoteID}> 
                   <Note titulo="titulo" note={nota}>  
 
