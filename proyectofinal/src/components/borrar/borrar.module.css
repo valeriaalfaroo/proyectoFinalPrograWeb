@@ -1,1 +1,35 @@
 .Borrar {}
+
+/* borrar.module.css */
+
+.Borrar {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .card-home {
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-top: 20px;
+  }
+  
+  .card-home h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .card-home button {
+    padding: 8px 16px;
+    margin-top: 10px;
+    border: none;
+    background-color: #ff3333;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .card-home button:hover {
+    background-color: #cc0000;
+  }
+  

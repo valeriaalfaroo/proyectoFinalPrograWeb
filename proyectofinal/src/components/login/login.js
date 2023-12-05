@@ -31,19 +31,36 @@ const Login = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const urlDelApi = "http://10.17.19.22/api.php/records";
+  const urlDelApi = "http://localhost:8080/api/user/all";
 
   const callAPIAuthenticate = (event) => {
     const data = formData;
     console.log("data");
     axios
       .get(
-        `${urlDelApi}/USUARIO?filter=Nombre_Usuario,eq,${formData.usuario}&filter=Contraseña,eq,${formData.password}`
-      )
+        `${urlDelApi}/USUARIO?filter=Nombre_Usuario,eq,${formData.usuario,
+          {
+            withCredentials: true,
+            headers: {
+              'Content-Type': 'application/json',
+              'Access-Control-Allow-Origin': '*',
+            },
+          }
+        }&filter=Contraseña,eq,${formData.password,
+          {
+            withCredentials: true,
+            headers: {
+              'Content-Type': 'application/json',
+              'Access-Control-Allow-Origin': '*',
+            },
+          }}`
+      
+        )
       .then(function (response) {
         // handle success
         console.log("data", response.data.records);
-       
+       localStorage.setItem("user",JSON.stringify(response.data.records[0]));
+       window.location.href="../main/"
       })
       .catch(function (error) {
         // handle error
@@ -51,6 +68,7 @@ const Login = () => {
       })
       .finally(function () {
         // always executed
+       
       });
   };
 
@@ -62,7 +80,8 @@ const Login = () => {
       mockUser.password === formData.password
     ) {
       console.log("Usuario correcto");
-      window.location.href="/Perfilpersona/"
+      
+     window.location.href="../main/"
     } else {
       console.log("Usuario incorrecto");
       alert("Ingrese un usuario y contraseña validos para continuar")

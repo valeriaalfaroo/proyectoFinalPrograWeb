@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import styles from './main.module.css';
 import TextField from "@mui/material/TextField";
@@ -12,18 +12,22 @@ import MenuItem from '@mui/material/MenuItem';
 import {TextareaAutosize } from '@mui/material' ;
 
 
-const Main = () => 
+const Main = (props) => 
   {
   
     const [formValues, setFormValues] = React.useState();
     const [authenticated, setAuthenticated] = React.useState();
     const [users, setUsers] = React.useState();
     const [notes, setNotes] = React.useState();
+    const [user,setUser]= React.useState(props.user);
+  
+    const urlDelApi = "http://localhost:8080/api/note/all";
+  
+    useEffect(()=>{
+      const user=localStorage.getItem("user"); 
+      setUser(props.user);
+    },[])
 
-  
-    const urlDelApi = "http://10.17.19.22/api.php/records";
-  
-  
     const mockNotes = [
       {
         NoteID: 1,
@@ -58,23 +62,27 @@ const Main = () =>
       setFormValues({ ...formValues, [name]: value });
     };
     const callAPINotes = (event) => {
+      const params = {
+        id: '1',
+      };
       axios
-        .get(`${urlDelApi}/Notes`)
+        .get(`${urlDelApi}`,{params},  {
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+            // Otros encabezados si son necesarios
+          },
+        })
         .then(function (response) {
-          // handle success
           console.log(response);
           console.log(response.data.records);
           console.log(response.statusText);
           setNotes(response.data.records);
         })
         .catch(function (error) {
-          // handle error
           console.log(error);
-        })
-        .finally(function () {
-          // always executed
         });
     };
+    
     const callAPMockNotes = (event) => {
       setNotes(mockNotes);
       setNotes([...mockNotes]);
@@ -117,17 +125,17 @@ const Main = () =>
         }}
       >
         <MenuItem onClick={handleClose}>
-      <a href="./perfilpersona">Profile</a>
+      <a href="../perfilpersona">Profile</a>
     </MenuItem>
     <MenuItem onClick={handleClose}>
-      <a href="./main">Home</a>
+      <a href="../main">Home</a>
     </MenuItem>
     <MenuItem onClick={handleClose}>
-      <a href="./login">Logout</a>
+      <a href="../login">Logout</a>
     </MenuItem>
       </Menu>
     </div>
-
+      <h1>Bienvenido {user?.usuario}</h1>
         <Grid
           container
           spacing={2}
@@ -144,7 +152,7 @@ const Main = () =>
           </Grid>
           <Grid item xs={6}>
           <h1> Blog de Notas</h1>
-            <Button onClick={callAPMockNotes} variant="contained" sx={{ mx: 2 }}>
+            <Button onClick={callAPINotes} variant="contained" sx={{ mx: 2 }}>
               Ver notas
             </Button>
             <Button onClick={clearNotes} color="secondary" variant="text">

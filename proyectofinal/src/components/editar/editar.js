@@ -10,159 +10,139 @@ import axios from "axios";
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import {useEffect} from 'react';
-
+import { useState } from 'react';
 import {TextareaAutosize } from '@mui/material' ;
 import { renderMatches } from 'react-router-dom';
 
-const Editar = () => {
+const Editar = (props) => {
+  const [notes, setNotes] = useState([]);
+  const [showNotes, setShowNotes] = useState(false);
+  const [editMode, setEditMode] = useState(false);
+  const [editingNote, setEditingNote] = useState({ id: '', title: '', content: '' });
 
-  const [formValues, setFormValues] = React.useState();
-  const [authenticated, setAuthenticated] = React.useState();
-  const [users, setUsers] = React.useState();
-  const [notes, setNotes] = React.useState();
-
-  const urlDelApi = "http://10.17.19.22/api.php/records";
-  
-  const mockNotes = [
-    {
-      NoteID: 4,
-      UserID: 4,
-      Title: "Nota 4",
-      Content: "nueva editable",
-      CreatedAt: "2023-10-10 15:56:41",
-    },
-    {
-      NoteID: 5,
-      UserID: 4,
-      Title: "nota 5",
-      Content: "This is the content of ToDo 3 for user 2.",
-      CreatedAt: "2023-10-10 15:56:41",
-    },
-    {
-      NoteID: 6,
-      UserID: 5,
-      Title: "nota 6",
-      Content: "This is the content of Task 13 for user 15.",
-      CreatedAt: "2023-10-10 15:56:41",
-    },
-  ];
-
-  const onChancheInput = (event) => {
-    let name = event.target.name;
-    let value = event.target.value;
-    console.log(event);
-    console.log(name);
-    console.log(value);
-    
-    setFormValues({ ...formValues, [name]: value });
-  };
-
-  const callAPINotes = (event) => {
-    axios
-      .get(`${urlDelApi}/Notes`)
-      .then(function (response) {
-        console.log(response);
-        console.log(response.data.records);
-        console.log(response.statusText);
-        setNotes(response.data.records);
-      })
-      .catch(function (error) {
-        console.log(error);
-      })
-      .finally(function () {
-      });
-  };
-
-  const callAPMockNotes = (event) => {
-    setNotes(mockNotes);
-    setNotes([...mockNotes]);
-  };
-
-  const clearNotes = (event) => {
-    setNotes();
-  };
-
-  const [anchorEl, setAnchorEl] = React.useState(null);
-    const open = Boolean(anchorEl);
-    const handleClick = (event) => {
-      setAnchorEl(event.currentTarget);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const urlDelApi = "http://localhost:8080/api/note/all";
+        const params = {
+          id: '1',
+        };
+        const response = await axios.get(urlDelApi, { params });
+        setNotes(response.data);
+      } catch (error) {
+        console.error(error);
+      }
     };
 
-    const handleClose = () => {
-      setAnchorEl(null);
-    };
+    if (showNotes) {
+      fetchData();
+    }
+  }, [showNotes]);
 
-    useEffect(() => {
-      callAPMockNotes();
-    }, []);
+  const handleShowNotes = () => {
+    setShowNotes(true);
+    setEditMode(false); 
+  };
 
-    const editNotes = (noteID) => {
-      //requiere conexion a base de datos
-    };
+  const handleHideNotes = () => {
+    setShowNotes(false);
+  };
 
-  return(
-    <div className={styles.Editar} data-testid="Editar">
-    
-        
+  const handleEnterEditMode = (note) => {
+    setEditMode(true);
+    setEditingNote(note);
+  };
 
-    <div>
-    <Button
-        id="basic-button"
-        aria-controls={open ? 'basic-menu' : undefined}
-        aria-haspopup="true"
-        aria-expanded={open ? 'true' : undefined}
-        onClick={handleClick}
-      >
-        DASHBOARD
+  const handleSaveChanges = async () => {
+    try {
+      const urlDelApi = "http://localhost:8080/api/note/byid";
+      const { id, title, content } = editingNote;
+      const params = {
+        id: '1',
+      };
+      await axios.put(urlDelApi, editingNote,params);
+      setEditMode(false);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleCancelEdit = () => {
+    setEditMode(false);
+    setEditingNote({ id: '', title: '', content: '' });
+  };
+
+  const volver = () => {
+    window.location.href="/Perfilpersona"
+  }
+
+  return (
+    <div className={styles.container}>
+      <Button variant="outlined" onClick={volver}>
+        Volver
       </Button>
-      <Menu
-        id="basic-menu"
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
-        MenuListProps={{
-          'aria-labelledby': 'basic-button',
-        }}
-      >
-        <MenuItem onClick={handleClose}>
-      <a href="./perfilpersona">Profile</a>
-    </MenuItem>
-    <MenuItem onClick={handleClose}>
-      <a href="./main">Home</a>
-    </MenuItem>
-    <MenuItem onClick={handleClose}>
-      <a href="./login">Logout</a>
-    </MenuItem>
-      </Menu>
-    </div>
-    
-  <h2>Seleccione la nota que desea editar</h2>
-        <br/>
-        <br/>
-        <br/>
+      <h1>Editar Notas</h1>
+      <Button variant="contained" onClick={handleShowNotes}>
+        Mostrar Notas
+      </Button>
+      <Button variant="text" onClick={handleHideNotes} color='secondary'>
+        Ocultar Notas
+      </Button>
 
-    <Card id="card-home" className={styles["card-home"]}>
-    <Grid container spacing={4}>
-      {notes?.map((nota) =>
-      (
-         <Grid item xs={6} key={nota.NoteID}> 
-            <Note titulo="titulo" note={nota}>  
-
-            </Note>
-            <button onClick={() => editNotes(nota.noteID)}>Edit</button>
+      {showNotes && (
+        <Grid container spacing={2} className={styles.notesContainer}>
+          {notes.map((note) => (
+            <Grid item key={note.id} xs={12} sm={6} md={4}>
+              <div className={styles.noteCard}>
+                <h3 className={styles.noteTitle}>{note.title}</h3>
+                <p className={styles.noteContent}>{note.content}</p>
+                {!editMode && (
+                  <div className={styles.centeredButton}>
+                  <Button
+                    variant="outlined"
+                    onClick={() => handleEnterEditMode(note)}
+                    className={styles.editBtn}
+                  >
+                    Editar
+                  </Button>
+                </div>
+                )}
+              </div>
+            </Grid>
+          ))}
         </Grid>
-        
-      ))}
-    </Grid>
-    
-  </Card>
+      )}
 
-  </div>
-  )
+      {editMode && (
+        <div className={styles.editForm}>
+          <TextField
+            label="Nuevo Título"
+            value={editingNote.title}
+            onChange={(e) => setEditingNote({ ...editingNote, title: e.target.value })}
+            className={styles.textField}
+          />
+          <br></br>
+          <br></br>
+          <TextField
+            label="Nuevo Contenido"
+            value={editingNote.content}
+            onChange={(e) => setEditingNote({ ...editingNote, content: e.target.value })}
+            className={styles.textField}
+          />      
+          <br></br>
+          <br></br>
+          <Button variant="contained" onClick={handleSaveChanges} className={styles.saveBtn}>
+            Guardar Cambios
+          </Button>
+          <br></br>
+          <br></br>
+          <Button variant="contained" onClick={handleCancelEdit} className={styles.cancelBtn}>
+            Cancelar Edición
+          </Button>
+        </div>
+      )}
+    </div>
+  );
 };
-
-Editar.propTypes = {};
-
-Editar.defaultProps = {};
 
 export default Editar;
