@@ -34,36 +34,27 @@ const Login = () => {
   const urlDelApi = "http://localhost:8080/api/login";
 
   const callAPIAuthenticate = (event) => {
-    const data = formData;
-    console.log("data");
     axios
-      .post(
-        `${urlDelApi,formData.usuario,formData.password,
-          {
-            withCredentials: true,
-            headers: {
-              'Content-Type': 'application/json',
-              'Access-Control-Allow-Origin': '*',
-            },
-          }
-       }`
-      
-        )
+      .post(urlDelApi,formData,
+         {
+          headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+          },
+        }
+      )
       .then(function (response) {
         // handle success
         console.log("data", response.data.records);
-       localStorage.setItem("user",JSON.stringify(response.data.records[0]));
-       window.location.href="../main/"
+        localStorage.setItem("user", JSON.stringify(response.data.records[0]));
+        window.location.href = "../main/";
       })
       .catch(function (error) {
         // handle error
         console.log(error);
-      })
-      .finally(function () {
-        // always executed
-       
       });
   };
+  
 
   const onClickBtn = () => {
     console.log("click", formData);
@@ -82,9 +73,10 @@ const Login = () => {
     
   };
 
-  const reset = () =>{
-    setFormData(''); 
-  }
+  const reset = () => {
+    setFormData({ usuario: '', password: '' });
+  };
+  
 
 
   return (

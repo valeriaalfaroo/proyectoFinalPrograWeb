@@ -12,11 +12,24 @@ import axios from "axios";
   
 const Perfilpersona = (props) => {
 
-  const urlDelApi = "http://localhost:8080/api/note/byid";
-  const [newNote, setNewNote] = useState({ id: '', title: '', content: '' });
-    const [user, setUser] = React.useState(props.user);
+  const urlDelApi = "http://localhost:8080/api/note";
+
+  const [user, setUser] = useState(props.user);
+  const [note, setNote] = useState({ id:'1', titulo: '', nota: '' });
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setNote({
+      ...note,
+      [name]: value,
+    });
+  };
+
     const [anchorEl, setAnchorEl] = React.useState(null);
+    
     const open = Boolean(anchorEl);
+
+    
 
     const handleClick = (event) => {
       setAnchorEl(event.currentTarget);
@@ -33,29 +46,34 @@ const Perfilpersona = (props) => {
     }
 
   //metodo para agregar nota a base de datos
-  const insertarNotaDB = (event) => {
-    const { id, title, content } = newNote;
-    axios
-      .post(urlDelApi, newNote, 
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-          },
-        })
-      .then(response => {
-        console.log('Post success');
-        console.log('Response: ', response.data);
-      })
-      .catch(function (error) {
-        console.log(error);
-      })
-      .finally(function () {
-      });
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    axios.post(
+      urlDelApi,
+      note,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+        },
+      }
+    )
+    .then(response => {
+      console.log('Post success');
+      console.log('Response: ', response.data);
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
   };
 
+
   const reset = () =>{
-    setNewNote(''); 
+    setNote({
+      titulo:'',
+      nota:''
+    });
   }
   
   return (
@@ -93,15 +111,29 @@ const Perfilpersona = (props) => {
 
   <h1>Perfil: {user?.usuario}</h1>
   <form>
-    <TextField required id="standard-basic-" label="Titulo" variant="standard" name="titulo" type="text"/>
+    <TextField required 
+    id="standard-basic-" 
+    label="Titulo" 
+    variant="standard" 
+    name="titulo" 
+    type="text" 
+    value={note.titulo} onChange={handleChange} 
+    />
     <br/>
-    <TextField required id="standard-basic" label="Nota" variant="standard" name="nota" type="text"/>
+    <TextField required 
+    id="standard-basic" 
+    label="Nota" 
+    variant="standard" 
+    name="nota" 
+    type="text"
+    value={note.nota} onChange={handleChange}
+    />
     <br/>
     <br/>
 
-    <Button variant="contained" name="AgregarNota" onClick={insertarNotaDB}>Agregar</Button>
+    <Button variant="contained" name="AgregarNota" onClick={handleSubmit}>Agregar</Button>
 
-    <Button variant="contained" name="Cancelar" onClick={reset}>Cancelar</Button>
+    <Button variant="contained" name="Cancelar"  onClick={reset}>Cancelar</Button>
     <br></br>
     <h2>Eliminar/Editar Nota</h2>
     <Button onClick={onClickBorrar} variant="contained" name="EliminarNota" type="button">Eliminar Nota</Button>     
