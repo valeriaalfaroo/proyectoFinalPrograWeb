@@ -15,7 +15,7 @@ const Perfilpersona = (props) => {
   const urlDelApi = "http://localhost:8080/api/note";
 
   const [user, setUser] = useState(props.user);
-  const [note, setNote] = useState({  titulo: '', nota: '' ,id:''});
+  const [note, setNote] = useState({ title: '', content: '' ,userID:''});
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -47,15 +47,15 @@ const Perfilpersona = (props) => {
 
   //metodo para agregar nota a base de datos
   const handleSubmit = (event) => {
-    const { titulo,nota,id } = note;
-      const params = {
-        id: '3',
-      };
+    const { title,content,userID } = note;
+    //  const params = {
+     //   userID: '3',
+   //   };
     event.preventDefault();
 
     axios.post(
       urlDelApi,
-      note,params,
+      note,
       {
         headers: {
           'Content-Type': 'application/json',
@@ -75,8 +75,8 @@ const Perfilpersona = (props) => {
 
   const reset = () =>{
     setNote({
-      titulo:'',
-      nota:''
+      title:'',
+      content:''
     });
   }
   
@@ -119,18 +119,18 @@ const Perfilpersona = (props) => {
     id="standard-basic-" 
     label="Titulo" 
     variant="standard" 
-    name="titulo" 
+    name="title" 
     type="text" 
-    value={note.titulo} onChange={handleChange} 
+    value={note.title} onChange={handleChange} 
     />
     <br/>
     <TextField required 
     id="standard-basic" 
     label="Nota" 
     variant="standard" 
-    name="nota" 
+    name="content" 
     type="text"
-    value={note.nota} onChange={handleChange}
+    value={note.content} onChange={handleChange}
     />
     <br/>
     <br/>
