@@ -12,9 +12,12 @@ import axios from "axios";
   
 const Perfilpersona = (props) => {
 
+  const urlDelApi = "http://localhost:8080/api/note/byid";
+  const [newNote, setNewNote] = useState({ id: '', title: '', content: '' });
     const [user, setUser] = React.useState(props.user);
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
+
     const handleClick = (event) => {
       setAnchorEl(event.currentTarget);
     };
@@ -30,7 +33,30 @@ const Perfilpersona = (props) => {
     }
 
   //metodo para agregar nota a base de datos
-  
+  const insertarNotaDB = (event) => {
+    const { id, title, content } = newNote;
+    axios
+      .post(urlDelApi, newNote, 
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+          },
+        })
+      .then(response => {
+        console.log('Post success');
+        console.log('Response: ', response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
+      .finally(function () {
+      });
+  };
+
+  const reset = () =>{
+    setNewNote(''); 
+  }
   
   return (
   <div className={styles.Perfilpersona} data-testid="Perfilpersona">
@@ -73,11 +99,9 @@ const Perfilpersona = (props) => {
     <br/>
     <br/>
 
-    <Button variant="contained" name="AgregarNota" type="submit" >Agregar</Button>
+    <Button variant="contained" name="AgregarNota" onClick={insertarNotaDB}>Agregar</Button>
 
-    <Button variant="contained" name="AgregarNota" type="submit">Agregar</Button>
-
-    <Button variant="contained" name="Cancelar" type="reset">Cancelar</Button>
+    <Button variant="contained" name="Cancelar" onClick={reset}>Cancelar</Button>
     <br></br>
     <h2>Eliminar/Editar Nota</h2>
     <Button onClick={onClickBorrar} variant="contained" name="EliminarNota" type="button">Eliminar Nota</Button>     

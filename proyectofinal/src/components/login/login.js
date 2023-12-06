@@ -31,14 +31,14 @@ const Login = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const urlDelApi = "http://localhost:8080/api/user/all";
+  const urlDelApi = "http://localhost:8080/api/login";
 
   const callAPIAuthenticate = (event) => {
     const data = formData;
     console.log("data");
     axios
-      .get(
-        `${urlDelApi}/USUARIO?filter=Nombre_Usuario,eq,${formData.usuario,
+      .post(
+        `${urlDelApi,formData.usuario,formData.password,
           {
             withCredentials: true,
             headers: {
@@ -46,14 +46,7 @@ const Login = () => {
               'Access-Control-Allow-Origin': '*',
             },
           }
-        }&filter=Contraseña,eq,${formData.password,
-          {
-            withCredentials: true,
-            headers: {
-              'Content-Type': 'application/json',
-              'Access-Control-Allow-Origin': '*',
-            },
-          }}`
+       }`
       
         )
       .then(function (response) {
@@ -121,7 +114,7 @@ const Login = () => {
         />
         <br></br>
         <br></br>
-        <Button variant="contained" name="btnIngresar" onClick={onClickBtn}>
+        <Button variant="contained" name="btnIngresar" onClick={callAPIAuthenticate}>
           Ingresar
         </Button>
         <Button variant="contained" name="btnCancelar" type="reset" onClick={reset}>
