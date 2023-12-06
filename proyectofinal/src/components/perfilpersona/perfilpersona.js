@@ -15,7 +15,7 @@ const Perfilpersona = (props) => {
   const urlDelApi = "http://localhost:8080/api/note";
 
   const [user, setUser] = useState(props.user);
-  const [note, setNote] = useState({ id:'1', titulo: '', nota: '' });
+  const [note, setNote] = useState({  titulo: '', nota: '' ,id:''});
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -47,11 +47,15 @@ const Perfilpersona = (props) => {
 
   //metodo para agregar nota a base de datos
   const handleSubmit = (event) => {
+    const { titulo,nota,id } = note;
+      const params = {
+        id: '3',
+      };
     event.preventDefault();
 
     axios.post(
       urlDelApi,
-      note,
+      note,params,
       {
         headers: {
           'Content-Type': 'application/json',

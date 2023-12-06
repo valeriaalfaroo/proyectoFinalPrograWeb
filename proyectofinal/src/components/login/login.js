@@ -31,7 +31,7 @@ const Login = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const urlDelApi = "http://localhost:8080/api/login";
+  const urlDelApi = "http://localhost:8080/api/user/login";
 
   const callAPIAuthenticate = (event) => {
     axios
@@ -46,7 +46,7 @@ const Login = () => {
       .then(function (response) {
         // handle success
         console.log("data", response.data.records);
-        localStorage.setItem("user", JSON.stringify(response.data.records[0]));
+       // localStorage.setItem("user", JSON.stringify(response.data.records[0]));
         window.location.href = "../main/";
       })
       .catch(function (error) {
