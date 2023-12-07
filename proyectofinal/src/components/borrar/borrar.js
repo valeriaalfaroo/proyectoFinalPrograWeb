@@ -10,7 +10,6 @@ import axios from "axios";
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import {useEffect} from 'react';
-import { useState } from 'react';
 import {TextareaAutosize } from '@mui/material' ;
 import { renderMatches } from 'react-router-dom';
 
@@ -23,8 +22,6 @@ const Borrar = (props) => {
     const [users, setUsers] = React.useState();
     const [notes, setNotes] = React.useState();
     const [user,setUser]= React.useState(props.user);
-    const [deleteMode, setDeleteMode] = useState(false);
-    const [deletingNote, setDeletingNote] = useState({ id: '', title: '', content: '' });
 
     const urlDelApi = "http://localhost:8080/api/note/all";
 
@@ -88,7 +85,6 @@ const Borrar = (props) => {
     };
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
-
     const handleClick = (event) => {
       setAnchorEl(event.currentTarget);
     };
@@ -97,7 +93,7 @@ const Borrar = (props) => {
     };
 
     useEffect(() => {
-      callAPINotes();
+      callAPMockNotes();
     }, []);
       //UseEffect sirve para cargar las notas cuando el componente cargue
     
@@ -105,21 +101,6 @@ const Borrar = (props) => {
         // Se filtra la nota con el NoteID 
         const updatedNotes = notes.filter((note) => note.NoteID !== noteID);
         setNotes(updatedNotes);
-      };
-    const deleteNote = (ID_Notas) => {
-        // Se filtra la nota con el ID_Notas 
-        const updatedNotes = notes.filter((note) => note.ID_Notas !== ID_Notas);
-        setNotes(updatedNotes);
-      };
-
-      const handleEnterDeleteMode = (note) => {
-        setDeleteMode(true);
-        setDeletingNote(note);
-      };
-
-      const handleCancelDelete = () => {
-        setDeleteMode(false);
-        setDeletingNote({ id: '', title: '', content: '' });
       };
       
       const volver = () => {
@@ -144,8 +125,7 @@ const Borrar = (props) => {
          
          
           <Grid container spacing={4}>
-            {notes?.map((nota) => 
-            //Se cambio esta linea, en vez de usar nota, index ahora solo es nota y key usa nota.NoteID para
+            {notes?.map((nota) => //Se cambio esta linea, en vez de usar nota, index ahora solo es nota y key usa nota.NoteID para
             //eliminar correctamente la nota, en caso contrario se eliminaria la nota de abajo primero.
             //Tambien se cambio el key={index} por nota.NoteID para que funcione
             (
@@ -154,7 +134,7 @@ const Borrar = (props) => {
                   <Note titulo="titulo" note={nota}>  
 
                   </Note>
-                  <button onClick={() => deleteNote(nota.ID_Notas)}>Delete</button>
+                  <button onClick={() => deleteMockNote(nota.NoteID)}>Delete</button>
               </Grid>
               
             ))}

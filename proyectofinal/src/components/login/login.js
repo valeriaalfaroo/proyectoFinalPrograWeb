@@ -31,46 +31,30 @@ const Login = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const urlDelApi = "http://localhost:8080/api/user/all";
+  const urlDelApi = "http://localhost:8080/api/user/login";
 
   const callAPIAuthenticate = (event) => {
-    const data = formData;
-    console.log("data");
     axios
-      .get(
-        `${urlDelApi}/USUARIO?filter=Nombre_Usuario,eq,${formData.usuario,
-          {
-            withCredentials: true,
-            headers: {
-              'Content-Type': 'application/json',
-              'Access-Control-Allow-Origin': '*',
-            },
-          }
-        }&filter=Contraseña,eq,${formData.password,
-          {
-            withCredentials: true,
-            headers: {
-              'Content-Type': 'application/json',
-              'Access-Control-Allow-Origin': '*',
-            },
-          }}`
-      
-        )
+      .post(urlDelApi,formData,
+         {
+          headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+          },
+        }
+      )
       .then(function (response) {
         // handle success
         console.log("data", response.data.records);
-       localStorage.setItem("user",JSON.stringify(response.data.records[0]));
-       window.location.href="../main/"
+       // localStorage.setItem("user", JSON.stringify(response.data.records[0]));
+        window.location.href = "../main/";
       })
       .catch(function (error) {
         // handle error
         console.log(error);
-      })
-      .finally(function () {
-        // always executed
-       
       });
   };
+  
 
   const onClickBtn = () => {
     console.log("click", formData);
@@ -89,9 +73,10 @@ const Login = () => {
     
   };
 
-  const reset = () =>{
-    setFormData(''); 
-  }
+  const reset = () => {
+    setFormData({ usuario: '', password: '' });
+  };
+  
 
 
   return (
@@ -121,7 +106,7 @@ const Login = () => {
         />
         <br></br>
         <br></br>
-        <Button variant="contained" name="btnIngresar" onClick={onClickBtn}>
+        <Button variant="contained" name="btnIngresar" onClick={callAPIAuthenticate}>
           Ingresar
         </Button>
         <Button variant="contained" name="btnCancelar" type="reset" onClick={reset}>
