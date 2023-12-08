@@ -48,14 +48,14 @@ const Perfilpersona = (props) => {
   //metodo para agregar nota a base de datos
   const handleSubmit = (event) => {
     const { title,content,userID } = note;
-    //  const params = {
-     //   userID: '3',
-   //   };
+     const params = {
+        userID: '3',
+     };
     event.preventDefault();
 
     axios.post(
       urlDelApi,
-      note,
+      note,params, 
       {
         headers: {
           'Content-Type': 'application/json',

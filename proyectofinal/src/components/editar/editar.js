@@ -56,11 +56,14 @@ const Editar = (props) => {
   const handleSaveChanges = async () => {
     try {
       const urlDelApi = "http://localhost:8080/api/note/byid";
-      const { idUser, title, content } = editingNote;
+      const { userID, title, content, noteID } = editingNote;
       const params = {
         idUser: '3',
       };
-      await axios.put(urlDelApi, editingNote,params);
+      console.log("params",params)
+      console.log("editingNote",editingNote)
+      
+      await axios.put(urlDelApi,  {'content':'test'} );
       setEditMode(false);
     } catch (error) {
       console.error(error);
