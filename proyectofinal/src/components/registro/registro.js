@@ -32,32 +32,26 @@ const Registro = () => {
   const urlDelApi = "http://localhost:8080/api/user";
   const handleSubmit = (e) => {
     axios
-
-      .post(urlDelApi,formData,
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*',
-        },
-      }
-      ) 
+      .post(
+        `${urlDelApi}?name=${formData.name}&lastnames=${formData.lastnames}&email=${formData.email}&username=${formData.username}&password=${formData.password}`,
+        null, // pass null as the second parameter for a GET request with parameters in the URL
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+          },
+        }
+      )
       .then((response) => {
-       
         console.log(response.data);
-
         console.log(formData);
-        window.location.href="../Login/"
+        window.location.href = "../Login/";
       })
       .catch((error) => {
-       
         console.error(error);
-       
       })
       .finally(() => {
-       
-       
-
-       
+        // Any cleanup or additional logic
       });
   };
 

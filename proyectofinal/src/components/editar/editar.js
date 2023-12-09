@@ -18,8 +18,7 @@ const Editar = (props) => {
   const [notes, setNotes] = useState([]);
   const [showNotes, setShowNotes] = useState(false);
   const [editMode, setEditMode] = useState(false);
-  const [editingNote, setEditingNote] = useState({ idUser: '', title: '', content: '' });
-
+  const [editingNote, setEditingNote] = useState({ idUser: '', title: '', content: '',userID:'3',noteID:''});
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -56,14 +55,11 @@ const Editar = (props) => {
   const handleSaveChanges = async () => {
     try {
       const urlDelApi = "http://localhost:8080/api/note/byid";
-      const { userID, title, content, noteID } = editingNote;
-      const params = {
-        idUser: '3',
-      };
-      console.log("params",params)
+      
       console.log("editingNote",editingNote)
       
-      await axios.put(urlDelApi,  {'content':'test'} );
+      await axios.put(`${urlDelApi}?content=${editingNote.content}&title=${editingNote.title}&noteID=${editingNote.noteID}&userID=${editingNote.userID}`
+      ,null);
       setEditMode(false);
     } catch (error) {
       console.error(error);
@@ -72,7 +68,7 @@ const Editar = (props) => {
 
   const handleCancelEdit = () => {
     setEditMode(false);
-    setEditingNote({ idUser: '', title: '', content: '' });
+    setEditingNote({ idUser: '', title: '', content: '',userID:'' });
   };
 
   const volver = () => {
