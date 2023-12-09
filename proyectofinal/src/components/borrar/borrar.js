@@ -71,54 +71,88 @@ const Borrar = (props) => {
       }
     };
   
-      //UseEffect sirve para cargar las notas cuando el componente cargue
+
     
-    const deleteMockNote = (noteID) => {
-        // Se filtra la nota con el NoteID 
-        const updatedNotes = notes.filter((note) => note.NoteID !== noteID);
-        setNotes(updatedNotes);
+      const handleCancelEdit = () => {
+        setDeleteMode(false);
+        setDeletingNote({ idUser: '', title: '', content: '',userID:'' });
       };
       
       const volver = () => {
         window.location.href="/Perfilpersona"
       }
-  return(
-  <div className={styles.Borrar} data-testid="Borrar">
+      return (
+        <div className={styles.container}>
+          <Button variant="outlined" onClick={volver}>
+            Volver
+          </Button>
+          <h1>Borrar Notas</h1>
+          <Button variant="contained" onClick={handleShowNotes}>
+            Mostrar Notas
+          </Button>
+          <Button variant="text" onClick={handleHideNotes} color='secondary'>
+            Ocultar Notas
+          </Button>
     
-    <Button variant="outlined" onClick={volver}>
-        Volver
-      </Button>
-<h1>Borrar Notas</h1>
+          {showNotes && (
+            <Grid container spacing={2} className={styles.notesContainer}>
+              {notes.map((note) => (
+                <Grid item key={note.id} xs={12} sm={6} md={4}>
+                  <div className={styles.noteCard}>
+                    <h3 className={styles.noteTitle}>{note.title}</h3>
+                    <p className={styles.noteContent}>{note.content}</p>
+                    {!deleteMode && (
+                      <div className={styles.centeredButton}>
+                      <Button
+                        variant="outlined"
+                        onClick={() => handleEnterDeleteMode(note)}
+                        className={styles.editBtn}
+                      >
+                        Borrar
+                      </Button>
+                    </div>
+                    )}
+                  </div>
+                </Grid>
+              ))}
+            </Grid>
+          )}
     
-    
-<h2>{user?.usuario} seleccione la nota que desea eliminar</h2>
+          {deleteMode && (
+            <div className={styles.editForm}>
+              <TextField
+                label="Nuevo Título"
+                value={deletingNote.title}
+                onChange={(e) => setDeletingNote({ ...deletingNote, title: e.target.value })}
+                className={styles.textField}
+              />
+              <br></br>
+              <br></br>
+              <TextField
+                label="Nuevo Contenido"
+                value={deletingNote.content}
+                onChange={(e) => setDeletingNote({ ...deletingNote, content: e.target.value })}
+                className={styles.textField}
+              />      
+              <br></br>
+              <br></br>
 
-        <br></br>
-        <br></br>
-        <br></br>
-
-        <Card id="card-home" className={styles["card-home"]}>
-         
-         
-          <Grid container spacing={4}>
-            {notes?.map((nota) => //Se cambio esta linea, en vez de usar nota, index ahora solo es nota y key usa nota.NoteID para
-            //eliminar correctamente la nota, en caso contrario se eliminaria la nota de abajo primero.
-            //Tambien se cambio el key={index} por nota.NoteID para que funcione
-            (
-                 
-               <Grid item xs={6} key={nota.NoteID}> 
-                  <Note titulo="titulo" note={nota}>  
-
-                  </Note>
-                  <button onClick={() => deleteMockNote(nota.NoteID)}>Delete</button>
-              </Grid>
               
-            ))}
-          </Grid>
-          
-        </Card>          
-  </div>
-  )
+              <Button variant="contained" onClick={handleSaveChanges} className={styles.saveBtn}>
+                Guardar Cambios
+                
+              </Button>
+              <br></br>
+              <br></br>
+              <Button variant="contained" onClick={handleCancelEdit} className={styles.cancelBtn}>
+                Cancelar
+              </Button>
+
+
+            </div>// Ese boton guardar cambios y cancelar seran removidos.
+          )}
+        </div>
+      );
 };
   
 Borrar.propTypes = {};
