@@ -21,7 +21,7 @@ const Borrar = (props) => {
     const [notes, setNotes] = useState([]);
     const [showNotes, setShowNotes] = useState(false);
     const [deleteMode, setDeleteMode] = useState(false);
-    const [deletingNote, setDeletingNote] = useState({ idUser: '', title: '', content: '',userID:'1',noteID:''});
+    const [deletingNote, setDeletingNote] = useState({ idUser: '', title: '', content: '',userID:'1',noteID:'1'});
 
     useEffect(() => {
       const fetchData = async () => {
