@@ -10,6 +10,7 @@ import axios from "axios";
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import {useEffect} from 'react';
+import { useState } from 'react';
 import {TextareaAutosize } from '@mui/material' ;
 import { renderMatches } from 'react-router-dom';
 
@@ -17,132 +18,141 @@ import { renderMatches } from 'react-router-dom';
 
 const Borrar = (props) => {
 
-    const [formValues, setFormValues] = React.useState();
-    const [authenticated, setAuthenticated] = React.useState();
-    const [users, setUsers] = React.useState();
-    const [notes, setNotes] = React.useState();
-    const [user,setUser]= React.useState(props.user);
-
-    const urlDelApi = "http://localhost:8080/api/note/all";
-
-    const mockNotes = [
-      {
-        NoteID: 1,
-        UserID: 1,
-        Title: "Nota 1",
-        Content: "nueva nota",
-        CreatedAt: "2023-10-10 15:56:41",
-      },
-      {
-        NoteID: 2,
-        UserID: 1,
-        Title: "nota 2",
-        Content: "This is the content of ToDo 2 for user 1.",
-        CreatedAt: "2023-10-10 15:56:41",
-      },
-      {
-        NoteID: 3,
-        UserID: 2,
-        Title: "nota 3",
-        Content: "This is the content of Task 1 for user 2.",
-        CreatedAt: "2023-10-10 15:56:41",
-      },
-    ];
-    const onChancheInput = (event) => {
-      let name = event.target.name;
-      let value = event.target.value;
-      console.log(event);
-      console.log(name);
-      console.log(value);
-  
-      setFormValues({ ...formValues, [name]: value });
-    };
-    const callAPINotes = (event) => {
-      axios
-        .get(`${urlDelApi}`)
-        .then(function (response) {
-          // handle success
-          console.log(response);
-          console.log(response.data.records);
-          console.log(response.statusText);
-          setNotes(response.data.records);
-        })
-        .catch(function (error) {
-          // handle error
-          console.log(error);
-        })
-        .finally(function () {
-          // always executed
-        });
-    };
-    const callAPMockNotes = (event) => {
-      setNotes(mockNotes);
-      setNotes([...mockNotes]);
-  
-    };
-    const clearNotes = (event) => {
-      setNotes();
-    };
-    const [anchorEl, setAnchorEl] = React.useState(null);
-    const open = Boolean(anchorEl);
-    const handleClick = (event) => {
-      setAnchorEl(event.currentTarget);
-    };
-    const handleClose = () => {
-      setAnchorEl(null);
-    };
+    const [notes, setNotes] = useState([]);
+    const [showNotes, setShowNotes] = useState(false);
+    const [deleteMode, setDeleteMode] = useState(false);
+    const [deletingNote, setDeletingNote] = useState({ idUser: '', title: '', content: '',userID:'1',noteID:''});
 
     useEffect(() => {
-      callAPMockNotes();
-    }, []);
-      //UseEffect sirve para cargar las notas cuando el componente cargue
+      const fetchData = async () => {
+        try {
+          const urlDelApi = "http://localhost:8080/api/note/all";
+          const params = {
+            idUser: '1',
+          };
+          const response = await axios.get(urlDelApi, { params });
+          setNotes(response.data);
+        } catch (error) {
+          console.error(error);
+        }
+      };
+  
+      if (showNotes) {
+        fetchData();
+      }
+    }, [showNotes]);
+
     
-    const deleteMockNote = (noteID) => {
-        // Se filtra la nota con el NoteID 
-        const updatedNotes = notes.filter((note) => note.NoteID !== noteID);
-        setNotes(updatedNotes);
+    const handleShowNotes = () => {
+      setShowNotes(true);
+      setDeleteMode(false); 
+    };
+  
+    const handleHideNotes = () => {
+      setShowNotes(false);
+    };
+  
+    const handleEnterDeleteMode = (note) => {
+      setDeleteMode(true);
+      setDeletingNote(note);
+    };
+
+    const handleSaveChanges = async () => {
+      try {
+        const urlDelApi = "http://localhost:8080/api/note/byid";
+        
+        console.log("deletingNote",deletingNote)
+        
+        await axios.put(`${urlDelApi}?content=${deletingNote.content}&title=${deletingNote.title}&noteID=${deletingNote.noteID}&userID=${deletingNote.userID}`
+        ,null);
+        setDeleteMode(false);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+  
+
+    
+      const handleCancelEdit = () => {
+        setDeleteMode(false);
+        setDeletingNote({ idUser: '', title: '', content: '',userID:'' });
       };
       
       const volver = () => {
         window.location.href="/Perfilpersona"
       }
-  return(
-  <div className={styles.Borrar} data-testid="Borrar">
+      return (
+        <div className={styles.container}>
+          <Button variant="outlined" onClick={volver}>
+            Volver
+          </Button>
+          <h1>Borrar Notas</h1>
+          <Button variant="contained" onClick={handleShowNotes}>
+            Mostrar Notas
+          </Button>
+          <Button variant="text" onClick={handleHideNotes} color='secondary'>
+            Ocultar Notas
+          </Button>
     
-    <Button variant="outlined" onClick={volver}>
-        Volver
-      </Button>
-<h1>Borrar Notas</h1>
+          {showNotes && (
+            <Grid container spacing={2} className={styles.notesContainer}>
+              {notes.map((note) => (
+                <Grid item key={note.id} xs={12} sm={6} md={4}>
+                  <div className={styles.noteCard}>
+                    <h3 className={styles.noteTitle}>{note.title}</h3>
+                    <p className={styles.noteContent}>{note.content}</p>
+                    {!deleteMode && (
+                      <div className={styles.centeredButton}>
+                      <Button
+                        variant="outlined"
+                        onClick={() => handleEnterDeleteMode(note)}
+                        className={styles.editBtn}
+                      >
+                        Borrar
+                      </Button>
+                    </div>
+                    )}
+                  </div>
+                </Grid>
+              ))}
+            </Grid>
+          )}
     
-    
-<h2>{user?.usuario} seleccione la nota que desea eliminar</h2>
+          {deleteMode && (
+            <div className={styles.editForm}>
+              <TextField
+                label="Nuevo Título"
+                value={deletingNote.title}
+                onChange={(e) => setDeletingNote({ ...deletingNote, title: e.target.value })}
+                className={styles.textField}
+              />
+              <br></br>
+              <br></br>
+              <TextField
+                label="Nuevo Contenido"
+                value={deletingNote.content}
+                onChange={(e) => setDeletingNote({ ...deletingNote, content: e.target.value })}
+                className={styles.textField}
+              />      
+              <br></br>
+              <br></br>
 
-        <br></br>
-        <br></br>
-        <br></br>
-
-        <Card id="card-home" className={styles["card-home"]}>
-         
-         
-          <Grid container spacing={4}>
-            {notes?.map((nota) => //Se cambio esta linea, en vez de usar nota, index ahora solo es nota y key usa nota.NoteID para
-            //eliminar correctamente la nota, en caso contrario se eliminaria la nota de abajo primero.
-            //Tambien se cambio el key={index} por nota.NoteID para que funcione
-            (
-                 
-               <Grid item xs={6} key={nota.NoteID}> 
-                  <Note titulo="titulo" note={nota}>  
-
-                  </Note>
-                  <button onClick={() => deleteMockNote(nota.NoteID)}>Delete</button>
-              </Grid>
               
-            ))}
-          </Grid>
-          
-        </Card>          
-  </div>
-  )
+              <Button variant="contained" onClick={handleSaveChanges} className={styles.saveBtn}>
+                Guardar Cambios
+                
+              </Button>
+              <br></br>
+              <br></br>
+              <Button variant="contained" onClick={handleCancelEdit} className={styles.cancelBtn}>
+                Cancelar
+              </Button>
+
+
+            </div>// Ese boton guardar cambios y cancelar seran removidos.
+          )}
+        </div>
+      );
 };
   
 Borrar.propTypes = {};

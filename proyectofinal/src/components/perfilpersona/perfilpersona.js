@@ -15,7 +15,7 @@ const Perfilpersona = (props) => {
   const urlDelApi = "http://localhost:8080/api/note";
 
   const [user, setUser] = useState(props.user);
-  const [note, setNote] = useState({title: '', content: '' ,userID:'3'});
+  const [note, setNote] = useState({title: '', content: '' ,userID:'1'});
 
   const handleChange = (event) => {
     const { name, value } = event.target;

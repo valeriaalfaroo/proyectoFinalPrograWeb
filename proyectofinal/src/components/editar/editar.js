@@ -18,13 +18,13 @@ const Editar = (props) => {
   const [notes, setNotes] = useState([]);
   const [showNotes, setShowNotes] = useState(false);
   const [editMode, setEditMode] = useState(false);
-  const [editingNote, setEditingNote] = useState({ idUser: '', title: '', content: '',userID:'3',noteID:''});
+  const [editingNote, setEditingNote] = useState({ idUser: '', title: '', content: '',userID:'1',noteID:''});
   useEffect(() => {
     const fetchData = async () => {
       try {
         const urlDelApi = "http://localhost:8080/api/note/all";
         const params = {
-          idUser: '3',
+          idUser: '1',
         };
         const response = await axios.get(urlDelApi, { params });
         setNotes(response.data);
