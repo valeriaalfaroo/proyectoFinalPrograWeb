@@ -13,6 +13,7 @@ const Borrar = () => {
   const [deleteMode, setDeleteMode] = useState(false);
   const [deletingNote, setDeletingNote] = useState({ id:0});
 
+
   const fetchNotes = async () => {
     try {
        const url = "http://localhost:8080/api/note/all";
@@ -31,7 +32,6 @@ const Borrar = () => {
        console.log(`Fetch failed: ${error.message}`);
     }
    };
-
   const handleShowNotes = () => {
       fetchNotes();
       setShowNotes(true);
@@ -46,6 +46,7 @@ const Borrar = () => {
       setDeleteMode(true);
   };
 
+
   const handleSaveChanges = async () => {
       try {
           const urlDelApi = "http://localhost:8080/api/note";
@@ -57,9 +58,11 @@ const Borrar = () => {
           await axios.delete(urlDelApi, { params: { id: deletingNote.id } });
           setDeleteMode(false);
           fetchNotes();
+
       } catch (error) {
           console.error(error);
       }
+
   };
 
   const handleCancelEdit = () => {
@@ -94,6 +97,7 @@ const Borrar = () => {
           </Button>
 
           {showNotes && (
+
               <Grid container spacing={2} className={styles.notesContainer}>
                   {notes.map((note) => (
                       <Grid item key={note.id} xs={12} sm={6} md={4}>
@@ -118,6 +122,7 @@ const Borrar = () => {
           )}
 
           {deleteMode && (
+
               <div className={styles.editForm}>
                   <Button variant="contained" onClick={handleConfirmDelete} className={styles.saveBtn}>
                       Confirmar
