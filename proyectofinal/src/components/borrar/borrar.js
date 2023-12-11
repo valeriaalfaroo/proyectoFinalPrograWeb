@@ -21,7 +21,6 @@ const Borrar = (props) => {
     const [notes, setNotes] = useState([]);
     const [showNotes, setShowNotes] = useState(false);
     const [deleteMode, setDeleteMode] = useState(false);
- 
     const [deletingNote, setDeletingNote] = useState({ id:''});
 
     const fetchData = async () => {
@@ -63,8 +62,8 @@ const Borrar = (props) => {
     const handleDeleteNote = async () => {
       try {
        // console.log("Deleting note:", deletingNote);
-        const urlDelApi = `http://localhost:8080/api/note/`;
-        await axios.delete(${urlDelApi} ?id=${deletingNote.id}
+       const urlDelApi = 'http://localhost:8080/api/note';
+       await axios.delete(`${urlDelApi}?id=${deletingNote.id}`);
         setDeleteMode(false);
         // Refresca notas despues de borrarlas 
         await fetchData();
@@ -121,10 +120,6 @@ const Borrar = (props) => {
           {deleteMode && (
             <div className={styles.editForm}>
               
-              
-              
-              
-
 
             </div>
           )}
