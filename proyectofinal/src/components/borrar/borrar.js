@@ -21,22 +21,22 @@ const Borrar = (props) => {
     const [notes, setNotes] = useState([]);
     const [showNotes, setShowNotes] = useState(false);
     const [deleteMode, setDeleteMode] = useState(false);
-    const [deletingNote, setDeletingNote] = useState({ idUser: '', title: '', content: '',userID:'1',noteID:''});
+    const [deletingNote, setDeletingNote] = useState({ id:''});
 
-    useEffect(() => {
-      const fetchData = async () => {
-        try {
-          const urlDelApi = "http://localhost:8080/api/note/all";
-          const params = {
-            idUser: '1',
-          };
-          const response = await axios.get(urlDelApi, { params });
-          setNotes(response.data);
-        } catch (error) {
-          console.error(error);
-        }
-      };
+    const fetchData = async () => {
+      try {
+        const urlDelApi = "http://localhost:8080/api/note/all";
+        const params = {
+          idUser: '1',
+        };
+        const response = await axios.get(urlDelApi, { params });
+        setNotes(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
   
+    useEffect(() => {
       if (showNotes) {
         fetchData();
       }
@@ -57,21 +57,20 @@ const Borrar = (props) => {
       setDeletingNote(note);
     };
 
-    const handleSaveChanges = async () => {
+    
+  
+    const handleDeleteNote = async () => {
       try {
-        const urlDelApi = "http://localhost:8080/api/note/byid";
-        
-        console.log("deletingNote",deletingNote)
-        
-        await axios.put(`${urlDelApi}?content=${deletingNote.content}&title=${deletingNote.title}&noteID=${deletingNote.noteID}&userID=${deletingNote.userID}`
-        ,null);
+       // console.log("Deleting note:", deletingNote);
+       const urlDelApi = 'http://localhost:8080/api/note';
+       await axios.delete(`${urlDelApi}?id=${deletingNote.id}`);
         setDeleteMode(false);
+        // Refresca notas despues de borrarlas 
+        await fetchData();
       } catch (error) {
         console.error(error);
       }
     };
-  
-
     
       const handleCancelEdit = () => {
         setDeleteMode(false);
@@ -105,7 +104,7 @@ const Borrar = (props) => {
                       <div className={styles.centeredButton}>
                       <Button
                         variant="outlined"
-                        onClick={() => handleEnterDeleteMode(note)}
+                        onClick={handleDeleteNote}
                         className={styles.editBtn}
                       >
                         Borrar
@@ -120,36 +119,9 @@ const Borrar = (props) => {
     
           {deleteMode && (
             <div className={styles.editForm}>
-              <TextField
-                label="Nuevo Título"
-                value={deletingNote.title}
-                onChange={(e) => setDeletingNote({ ...deletingNote, title: e.target.value })}
-                className={styles.textField}
-              />
-              <br></br>
-              <br></br>
-              <TextField
-                label="Nuevo Contenido"
-                value={deletingNote.content}
-                onChange={(e) => setDeletingNote({ ...deletingNote, content: e.target.value })}
-                className={styles.textField}
-              />      
-              <br></br>
-              <br></br>
-
               
-              <Button variant="contained" onClick={handleSaveChanges} className={styles.saveBtn}>
-                Guardar Cambios
-                
-              </Button>
-              <br></br>
-              <br></br>
-              <Button variant="contained" onClick={handleCancelEdit} className={styles.cancelBtn}>
-                Cancelar
-              </Button>
 
-
-            </div>// Ese boton guardar cambios y cancelar seran removidos.
+            </div>
           )}
         </div>
       );
