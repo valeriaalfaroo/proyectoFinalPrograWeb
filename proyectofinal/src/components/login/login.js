@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import styles from './login.module.css';
 import TextField from '@mui/material/TextField';
@@ -15,10 +15,10 @@ const Login = () => {
 
   const mockUser = {
     usuario: 'admin',
-    password:'admin',
-    };
+    password: 'admin',
+  };
 
-  
+
 
   const callAPMockUsers = (event) => {
     setFormData(mockUser);
@@ -31,12 +31,14 @@ const Login = () => {
     setFormData({ ...formData, [name]: value });
   };
 
+ 
+
   const urlDelApi = "http://localhost:8080/api/user/login";
 
   const callAPIAuthenticate = (event) => {
     axios
-      .post(urlDelApi,formData,
-         {
+      .post(urlDelApi, formData,
+        {
           headers: {
             'Content-Type': 'application/json',
             'Access-Control-Allow-Origin': '*',
@@ -46,7 +48,12 @@ const Login = () => {
       .then(function (response) {
         // handle success
         console.log("data", response.data.records);
-       // localStorage.setItem("user", JSON.stringify(response.data.records[0]));
+
+        let user = response.data;
+
+        localStorage.setItem("user", JSON.stringify(user));
+
+        // localStorage.setItem("user", JSON.stringify(response.data.records[0]));
         window.location.href = "../main/";
       })
       .catch(function (error) {
@@ -54,7 +61,7 @@ const Login = () => {
         console.log(error);
       });
   };
-  
+
 
   const onClickBtn = () => {
     console.log("click", formData);
@@ -64,20 +71,18 @@ const Login = () => {
       mockUser.password === formData.password
     ) {
       console.log("Usuario correcto");
-      
-     window.location.href="../main/"
+
+      window.location.href = "../main/"
     } else {
       console.log("Usuario incorrecto");
       alert("Ingrese un usuario y contraseña validos para continuar")
     }
-    
+
   };
 
   const reset = () => {
     setFormData({ usuario: '', password: '' });
   };
-  
-
 
   return (
     <div className={styles.Login} data-testid="Login">
@@ -85,7 +90,7 @@ const Login = () => {
       <form>
         <TextField
           required
-          id="standard-basic"
+          id="standard-basic1"
           label="Usuario"
           variant="standard"
           name="usuario"
@@ -96,7 +101,7 @@ const Login = () => {
         <br></br>
         <TextField
           required
-          id="standard-basic"
+          id="standard-basic2"
           label="Password"
           variant="standard"
           name="password"
