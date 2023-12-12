@@ -8,7 +8,7 @@ import axios from 'axios';
 
 const Login = () => {
   const [formData, setFormData] = useState({
-    usuario: '',
+    username: '',
     password: '',
   });
 
@@ -37,7 +37,7 @@ const Login = () => {
 
   const callAPIAuthenticate = (event) => {
     axios
-      .post(urlDelApi, formData,
+      .post(`${urlDelApi}?username=${formData.username}&password=${formData.password}`,null,
         {
           headers: {
             'Content-Type': 'application/json',
@@ -53,8 +53,8 @@ const Login = () => {
 
         localStorage.setItem("user", JSON.stringify(user));
 
-        // localStorage.setItem("user", JSON.stringify(response.data.records[0]));
-        window.location.href = "../main/";
+       
+       // window.location.href = "../main/";
       })
       .catch(function (error) {
         // handle error
@@ -93,9 +93,9 @@ const Login = () => {
           id="standard-basic1"
           label="Usuario"
           variant="standard"
-          name="usuario"
+          name="username"
           type="text"
-          value={formData.usuario}
+          value={formData.username}
           onChange={handleChange}
         />
         <br></br>
