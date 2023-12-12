@@ -81,7 +81,7 @@ const Main = (props) => {
       </div>
       <h1>Notas</h1>
 
-      <Button onClick={handleTest}>Test</Button>
+      <Button onClick={handleTest}>Test 1</Button>
 
       <Grid container spacing={2}>
         {notes.map((note) => (
