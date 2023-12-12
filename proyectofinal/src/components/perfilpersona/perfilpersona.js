@@ -15,8 +15,8 @@ const Perfilpersona = (props) => {
   const urlDelApi = "http://localhost:8080/api/note";
 
   const [user, setUser] = useState(props.user);
-  const [note, setNote] = useState({title: '', content: '' ,userID:'1'});
-
+  const [note, setNote] = useState({title: '', content: '' ,userID:''});
+  let storedUser = JSON.parse(localStorage.getItem("user"));
   const handleChange = (event) => {
     const { name, value } = event.target;
     setNote({
@@ -47,13 +47,10 @@ const Perfilpersona = (props) => {
 
   //metodo para agregar nota a base de datos
   const handleSubmit = (event) => {
-   //  const params = {
-   //     userID: '3',
-   //  };
     event.preventDefault();
 
     axios.post(
-      `${urlDelApi}?title=${note.title}&content=${note.content}&userID=${note.userID}`
+      `${urlDelApi}?title=${note.title}&content=${note.content}&idUsuarioSesion=${storedUser.userID}&token=${storedUser.jwt}`
       , null,
       {
         headers: {
@@ -112,7 +109,7 @@ const Perfilpersona = (props) => {
       </Menu>
     </div>
 
-  <h1>Perfil: {user?.usuario}</h1>
+  <h1>Perfil de {storedUser.name}</h1>
   <form>
     <TextField required 
     id="standard-basic-" 

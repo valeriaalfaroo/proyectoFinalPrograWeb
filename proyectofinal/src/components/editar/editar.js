@@ -19,20 +19,27 @@ const Editar = (props) => {
   const [showNotes, setShowNotes] = useState(false);
   const [editMode, setEditMode] = useState(false);
   const [editingNote, setEditingNote] = useState({ idUser: '', title: '', content: '',userID:'1',noteID:''});
+  let storedUser = JSON.parse(localStorage.getItem("user"));
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const urlDelApi = "http://localhost:8080/api/note/all";
-        const params = {
-          idUser: '1',
-        };
-        const response = await axios.get(urlDelApi, { params });
+        
+       
+        const queryParams = new URLSearchParams({
+          idUsuarioSesion: storedUser.userID,
+          token: storedUser.jwt
+        });
+  
+        const requestURL = `${urlDelApi}?${queryParams.toString()}`;
+        
+        const response = await axios.get(requestURL);
         setNotes(response.data);
       } catch (error) {
         console.error(error);
       }
     };
-
     if (showNotes) {
       fetchData();
     }
@@ -58,8 +65,8 @@ const Editar = (props) => {
       
       console.log("editingNote",editingNote)
       
-      await axios.put(`${urlDelApi}?content=${editingNote.content}&title=${editingNote.title}&noteID=${editingNote.noteID}&userID=${editingNote.userID}`
-      ,null);
+      await axios.put(`${urlDelApi}?content=${editingNote.content}&title=${editingNote.title}&noteID=${editingNote.noteID}&idUsuarioSesion=${storedUser.userID}&token=${storedUser.jwt}`// Pass the storedUser's jwt as a query parameter
+        );
       setEditMode(false);
     } catch (error) {
       console.error(error);

@@ -17,20 +17,37 @@ const Main = (props) => {
   const [notes, setNotes] = useState([]);
   const [anchorEl, setAnchorEl] = React.useState(null);
 
+  const handleTest = () => {
+    let storedUser = JSON.parse(localStorage.getItem("user"));
+    console.log(storedUser);
+  }
+
+  let storedUser = JSON.parse(localStorage.getItem("user"));
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const urlDelApi = "http://localhost:8080/api/notes";
-        const response = await axios.get(urlDelApi);
+        
+       
+        const queryParams = new URLSearchParams({
+          idUsuarioSesion: storedUser.userID,
+          token: storedUser.jwt
+        });
+  
+        const requestURL = `${urlDelApi}?${queryParams.toString()}`;
+        
+        const response = await axios.get(requestURL);
         setNotes(response.data);
       } catch (error) {
-       console.error("2",error);
+        console.error("2", error);
       }
     };
-
-    fetchData(); // Llama a fetchData automáticamente al cargar la página
-
-  }, []); // La dependencia está vacía, por lo que se ejecutará solo una vez al montar el componente
+  
+    fetchData();
+  
+  }, []);
+  // La dependencia está vacía, por lo que se ejecutará solo una vez al montar el componente
 
   const open = Boolean(anchorEl);
 
@@ -42,10 +59,7 @@ const Main = (props) => {
     setAnchorEl(null);
   };
 
-  const handleTest = () => {
-    let storedUser = JSON.parse(localStorage.getItem("user"));
-    console.log(storedUser);
-  }
+  
 
   return (
     <div className={styles.Registro} data-testid="Registro">
@@ -79,7 +93,7 @@ const Main = (props) => {
           </MenuItem>
         </Menu>
       </div>
-      <h1>Notas</h1>
+      <h1>Bienvenid@ {storedUser.name}</h1>
 
       <Button onClick={handleTest}>Test 1</Button>
 

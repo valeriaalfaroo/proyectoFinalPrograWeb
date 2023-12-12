@@ -53,8 +53,8 @@ const Login = () => {
         let user = response.data;
 
         localStorage.setItem("user", JSON.stringify(user));
-
-        if(response.data!=null){
+        let storedUser = JSON.parse(localStorage.getItem("user"));
+        if(storedUser.jwt!=null){
           window.location.href = "../main/";
         }else{
           window.confirm("Usuario no encontrado");
