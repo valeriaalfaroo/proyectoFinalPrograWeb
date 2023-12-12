@@ -24,7 +24,7 @@ const Main = (props) => {
         const response = await axios.get(urlDelApi);
         setNotes(response.data);
       } catch (error) {
-        console.error(error);
+        console.error("2",error);
       }
     };
 
@@ -41,6 +41,11 @@ const Main = (props) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const handleTest = () => {
+    let storedUser = JSON.parse(localStorage.getItem("user"));
+    console.log(storedUser.idUser);
+  }
 
   return (
     <div className={styles.Registro} data-testid="Registro">
@@ -75,6 +80,8 @@ const Main = (props) => {
         </Menu>
       </div>
       <h1>Notas</h1>
+
+      <Button onClick={handleTest}>Test</Button>
 
       <Grid container spacing={2}>
         {notes.map((note) => (
