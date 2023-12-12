@@ -24,7 +24,7 @@ const Main = (props) => {
         const response = await axios.get(urlDelApi);
         setNotes(response.data);
       } catch (error) {
-        console.error("2",error);
+       console.error("2",error);
       }
     };
 
@@ -44,7 +44,7 @@ const Main = (props) => {
 
   const handleTest = () => {
     let storedUser = JSON.parse(localStorage.getItem("user"));
-    console.log(storedUser.idUser);
+    console.log(storedUser);
   }
 
   return (

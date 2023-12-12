@@ -33,8 +33,7 @@ const Registro = () => {
   const handleSubmit = (e) => {
     axios
       .post(
-        `${urlDelApi}?name=${formData.name}&lastnames=${formData.lastnames}&email=${formData.email}&username=${formData.username}&password=${formData.password}`,
-        null, // pass null as the second parameter for a GET request with parameters in the URL
+        urlDelApi,formData,// pass null as the second parameter for a GET request with parameters in the URL
         {
           headers: {
             "Content-Type": "application/json",

@@ -47,14 +47,20 @@ const Login = () => {
       )
       .then(function (response) {
         // handle success
+        
         console.log("data", response.data.records);
 
         let user = response.data;
 
         localStorage.setItem("user", JSON.stringify(user));
 
+        if(response.data!=null){
+          window.location.href = "../main/";
+        }else{
+          window.confirm("Usuario no encontrado");
+        }
        
-       // window.location.href = "../main/";
+      
       })
       .catch(function (error) {
         // handle error
@@ -81,7 +87,7 @@ const Login = () => {
   };
 
   const reset = () => {
-    setFormData({ usuario: '', password: '' });
+    setFormData({ username: '', password: '' });
   };
 
   return (
