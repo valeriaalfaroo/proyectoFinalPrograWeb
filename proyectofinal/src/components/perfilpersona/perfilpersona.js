@@ -62,6 +62,8 @@ const Perfilpersona = (props) => {
     .then(response => {
       console.log('Post success');
       console.log('Response: ', response.data);
+      //Reset 
+      reset()
     })
     .catch(error => {
       console.error('Error:', error);

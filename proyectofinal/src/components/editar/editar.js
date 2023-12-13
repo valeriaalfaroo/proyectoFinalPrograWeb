@@ -18,7 +18,7 @@ const Editar = (props) => {
   const [notes, setNotes] = useState([]);
   const [showNotes, setShowNotes] = useState(false);
   const [editMode, setEditMode] = useState(false);
-  const [editingNote, setEditingNote] = useState({ idUser: '', title: '', content: '',userID:'1',noteID:''});
+  const [editingNote, setEditingNote] = useState({ idUser: '', title: '', content: '',userID:'',noteID:''});
   let storedUser = JSON.parse(localStorage.getItem("user"));
 
   useEffect(() => {
@@ -36,6 +36,10 @@ const Editar = (props) => {
         
         const response = await axios.get(requestURL);
         setNotes(response.data);
+
+        //Actualizar notas cuando se actualizo la nota (ver los cambios)
+        fetchData();
+
       } catch (error) {
         console.error(error);
       }
