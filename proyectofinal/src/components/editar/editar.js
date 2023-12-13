@@ -9,41 +9,42 @@ import Note from "../Notes/Notes";
 import axios from "axios";
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import {useEffect} from 'react';
+import { useEffect } from 'react';
 import { useState } from 'react';
-import {TextareaAutosize } from '@mui/material' ;
+import { TextareaAutosize } from '@mui/material';
 import { renderMatches } from 'react-router-dom';
 
 const Editar = (props) => {
   const [notes, setNotes] = useState([]);
   const [showNotes, setShowNotes] = useState(false);
   const [editMode, setEditMode] = useState(false);
-  const [editingNote, setEditingNote] = useState({ idUser: '', title: '', content: '',userID:'',noteID:''});
+  const [editingNote, setEditingNote] = useState({ idUser: '', title: '', content: '', userID: '', noteID: '' });
   let storedUser = JSON.parse(localStorage.getItem("user"));
 
+
+  const fetchData = async () => {
+    try {
+      const urlDelApi = "http://localhost:8080/api/note/all";
+
+
+      const queryParams = new URLSearchParams({
+        idUsuarioSesion: storedUser.userID,
+        token: storedUser.jwt
+      });
+
+      const requestURL = `${urlDelApi}?${queryParams.toString()}`;
+
+      const response = await axios.get(requestURL);
+      setNotes(response.data);
+
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const urlDelApi = "http://localhost:8080/api/note/all";
-        
-       
-        const queryParams = new URLSearchParams({
-          idUsuarioSesion: storedUser.userID,
-          token: storedUser.jwt
-        });
-  
-        const requestURL = `${urlDelApi}?${queryParams.toString()}`;
-        
-        const response = await axios.get(requestURL);
-        setNotes(response.data);
 
-        //Actualizar notas cuando se actualizo la nota (ver los cambios)
-        fetchData();
-
-      } catch (error) {
-        console.error(error);
-      }
-    };
     if (showNotes) {
       fetchData();
     }
@@ -51,7 +52,7 @@ const Editar = (props) => {
 
   const handleShowNotes = () => {
     setShowNotes(true);
-    setEditMode(false); 
+    setEditMode(false);
   };
 
   const handleHideNotes = () => {
@@ -67,10 +68,9 @@ const Editar = (props) => {
     try {
       const urlDelApi = "http://localhost:8080/api/note/byid";
       
-      console.log("editingNote",editingNote)
-      
       await axios.put(`${urlDelApi}?content=${editingNote.content}&title=${editingNote.title}&noteID=${editingNote.noteID}&idUsuarioSesion=${storedUser.userID}&token=${storedUser.jwt}`// Pass the storedUser's jwt as a query parameter
-        );
+      );
+      fetchData();
       setEditMode(false);
     } catch (error) {
       console.error(error);
@@ -79,11 +79,11 @@ const Editar = (props) => {
 
   const handleCancelEdit = () => {
     setEditMode(false);
-    setEditingNote({ idUser: '', title: '', content: '',userID:'' });
+    setEditingNote({ idUser: '', title: '', content: '', userID: '' });
   };
 
   const volver = () => {
-    window.location.href="/Perfilpersona"
+    window.location.href = "/Perfilpersona"
   }
 
   return (
@@ -102,20 +102,20 @@ const Editar = (props) => {
       {showNotes && (
         <Grid container spacing={2} className={styles.notesContainer}>
           {notes.map((note) => (
-            <Grid item key={note.id} xs={12} sm={6} md={4}>
+            <Grid item key={note.noteID} xs={12} sm={6} md={4}>
               <div className={styles.noteCard}>
                 <h3 className={styles.noteTitle}>{note.title}</h3>
                 <p className={styles.noteContent}>{note.content}</p>
                 {!editMode && (
                   <div className={styles.centeredButton}>
-                  <Button
-                    variant="outlined"
-                    onClick={() => handleEnterEditMode(note)}
-                    className={styles.editBtn}
-                  >
-                    Editar
-                  </Button>
-                </div>
+                    <Button
+                      variant="outlined"
+                      onClick={() => handleEnterEditMode(note)}
+                      className={styles.editBtn}
+                    >
+                      Editar
+                    </Button>
+                  </div>
                 )}
               </div>
             </Grid>
@@ -138,7 +138,7 @@ const Editar = (props) => {
             value={editingNote.content}
             onChange={(e) => setEditingNote({ ...editingNote, content: e.target.value })}
             className={styles.textField}
-          />      
+          />
           <br></br>
           <br></br>
           <Button variant="contained" onClick={handleSaveChanges} className={styles.saveBtn}>

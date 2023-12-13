@@ -17,11 +17,6 @@ const Main = (props) => {
   const [notes, setNotes] = useState([]);
   const [anchorEl, setAnchorEl] = React.useState(null);
 
-  const handleTest = () => {
-    let storedUser = JSON.parse(localStorage.getItem("user"));
-    console.log(storedUser);
-  }
-
   let storedUser = JSON.parse(localStorage.getItem("user"));
 
   useEffect(() => {
@@ -95,11 +90,9 @@ const Main = (props) => {
       </div>
       <h1>Bienvenid@ {storedUser.name}</h1>
 
-      <Button onClick={handleTest}>Test 1</Button>
-
       <Grid container spacing={2}>
         {notes.map((note) => (
-          <Grid item key={note.id} xs={12} sm={6} md={4}>
+          <Grid item key={note.noteID} xs={12} sm={6} md={4}>
             <div>
               <h3>{note.title}</h3>
               <p>{note.content}</p>
