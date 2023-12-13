@@ -36,6 +36,10 @@ const Editar = (props) => {
         
         const response = await axios.get(requestURL);
         setNotes(response.data);
+
+        //Actualizar notas cuando se actualizo la nota (ver los cambios)
+        fetchData();
+
       } catch (error) {
         console.error(error);
       }
