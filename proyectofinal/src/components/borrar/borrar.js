@@ -26,9 +26,6 @@ const Borrar = () => {
                 throw new Error(`HTTP error: ${response.status}`);
             }
             setNotes(response.data);
-            console.log(response.data);
-            console.log(response.json());
-            console.log(response.headers)
         } catch (error) {
             console.log(`Fetch failed: ${error.message}`);
         }
@@ -59,8 +56,6 @@ const Borrar = () => {
                 idUsuarioSesion: storedUser.userID,
                 token: storedUser.jwt
             };
-
-            console.log("deletingNote", deletingNote)
 
         ;
             await axios.delete(urlDelApi, { params });
@@ -106,7 +101,7 @@ const Borrar = () => {
 
                 <Grid container spacing={2} className={styles.notesContainer}>
                     {notes.map((note) => (
-                        <Grid item key={note.id} xs={12} sm={6} md={4}>
+                        <Grid item key={note.noteID} xs={12} sm={6} md={4}>
                             <div className={styles.noteCard}>
                                 <h3 className={styles.noteTitle}>{note.title}</h3>
                                 <p className={styles.noteContent}>{note.content}</p>
