@@ -100,7 +100,7 @@ const Editar = (props) => {
       </Button>
 
       {showNotes && (
-        <Grid container spacing={2} className={styles.notesContainer}>
+        <Grid container spacing={2} className={styles.notesContainer} data-testid="notas-container">
           {notes.map((note) => (
             <Grid item key={note.noteID} xs={12} sm={6} md={4}>
               <div className={styles.noteCard}>
