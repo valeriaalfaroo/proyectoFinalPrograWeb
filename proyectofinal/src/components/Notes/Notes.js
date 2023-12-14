@@ -4,8 +4,9 @@ import styles from './Notes.module.css';
 import TextField from "@mui/material/TextField";
 import {TextareaAutosize } from '@mui/material' ;
 import Button from "@mui/material/Button";
+
 const Notes = (props) => (
-  <div className="Note" data-testid="Note">
+  <div className="Note" data-testid="Notes">
 
     <TextField 
       id="outlined-basic"

@@ -87,7 +87,7 @@ const Editar = (props) => {
   }
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} data-testid="Editar">
       <Button variant="outlined" onClick={volver}>
         Volver
       </Button>

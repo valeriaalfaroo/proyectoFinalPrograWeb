@@ -34,6 +34,7 @@ const Main = (props) => {
         
         const response = await axios.get(requestURL);
         setNotes(response.data);
+
       } catch (error) {
         console.error("2", error);
       }
@@ -57,7 +58,7 @@ const Main = (props) => {
   
 
   return (
-    <div className={styles.Registro} data-testid="Registro">
+    <div className={styles.Registro} data-testid="Main">
       <div>
         <Button
           id="basic-button"
@@ -88,7 +89,8 @@ const Main = (props) => {
           </MenuItem>
         </Menu>
       </div>
-      <h1>Bienvenid@ {storedUser.name}</h1>
+      <h1>Bienvenid@ {storedUser?.name || 'Invitado'}</h1>
+
 
       <Grid container spacing={2}>
         {notes.map((note) => (
