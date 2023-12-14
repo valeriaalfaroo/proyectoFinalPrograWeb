@@ -85,7 +85,7 @@ const Borrar = () => {
     }
 
     return (
-        <div className={styles.container}>
+        <div className={styles.container} data-testid="Borrar">
             <Button variant="outlined" onClick={volver}>
                 Volver
             </Button>

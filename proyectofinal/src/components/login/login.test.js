@@ -1,14 +1,14 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import Login from './Login/';
+import Login from './login.js/';
 
 describe('<Login />', () => {
-  test('it should mount', () => {
+  test('Renderea y encuentra el registro', async () => {  
     render(<Login />);
-    
-    const login = screen.getByTestId('Login');
-
-    expect(login).toBeInTheDocument();
+    await waitFor(() => {
+      const registro = screen.getByTestId('Login');
+      expect(registro).toBeInTheDocument() 
+    });
   });
 });

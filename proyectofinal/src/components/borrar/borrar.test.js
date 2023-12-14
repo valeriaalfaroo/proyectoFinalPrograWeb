@@ -1,14 +1,21 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import Borrar from './Borrar';
+import Borrar from './borrar';
 
 describe('<Borrar />', () => {
-  test('it should mount', () => {
+  test('Ocultar Notas button oculta las notas', async () => {
     render(<Borrar />);
-    
-    const borrar = screen.getByTestId('Borrar');
 
-    expect(borrar).toBeInTheDocument();
+    // Simular hacer clic en el botón "Ocultar Notas"
+    await act(async () => {
+      fireEvent.click(screen.getByText('Ocultar Notas'));
+    });
+
+    // Esperar a que las notas se oculten
+    await waitFor(() => {
+      const notas = screen.queryByTestId('notas-container'); // Asumiendo que tienes un test ID para el contenedor
+      expect(notas).not.toBeInTheDocument();
+    });
   });
 });

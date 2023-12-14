@@ -47,7 +47,7 @@ const NotasId = () => {
     };
 
   return (
-    <div className={styles.Registro} data-testid="Registro">
+    <div className={styles.Registro} data-testid="NotasID">
       <div>
       <Button
         id="basic-button"

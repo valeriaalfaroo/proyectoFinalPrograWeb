@@ -19,7 +19,7 @@ function App() {
     setUser(JSON.parse(usuario));
   },[])
   return (
-    <div className="App">
+    <div className="App" data-testid="App">
       
 
       <Router>

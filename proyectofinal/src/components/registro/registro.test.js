@@ -12,3 +12,4 @@ describe('<Registro />', () => {
     expect(registro).toBeInTheDocument();
   });
 });
+
